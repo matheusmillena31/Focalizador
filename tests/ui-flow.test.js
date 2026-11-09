@@ -84,6 +84,8 @@ async function integratedFlow(context, standalone = false) {
   await click('navigate', { view: 'agenda' });
   assert.match(root.innerHTML, /Um dia de cada vez/);
   assert.match(root.innerHTML, /calendar-grid month-view/);
+  assert.match(root.innerHTML, /data-details-mode="sessions" aria-pressed="true"/);
+  assert.match(root.innerHTML, /data-details-mode="summary" aria-pressed="false"/);
   await click('calendar-mode', { mode: 'week' });
   assert.match(root.innerHTML, /calendar-grid week-view/);
   assert.equal(storage.getItem('focus-agenda-mode'), 'week');
@@ -98,6 +100,15 @@ async function integratedFlow(context, standalone = false) {
   await submit({ title: 'Treino pessoal', start: '2026-11-07T15:00', end: '2026-11-07T16:00', activityId: activity.id, alert: 'none', urgency: 'high', leadMinutes: '0', note: 'Sem som' });
   const event = Object.values(records()).find(record => record.kind === 'event');
   assert.equal(event.alert, 'none');
+  assert.match(root.innerHTML, /<div class="daily-sessions">/);
+  assert.match(root.innerHTML, /Treino pessoal/);
+  await click('agenda-details-mode', { detailsMode: 'summary' });
+  assert.match(root.innerHTML, /<div class="daily-tasks">/);
+  assert.match(root.innerHTML, /Xadrez &lt;script&gt;/);
+  assert.equal(storage.getItem('focus-agenda-details-mode'), 'summary');
+  await click('agenda-details-mode', { detailsMode: 'sessions' });
+  assert.match(root.innerHTML, /<div class="daily-sessions">/);
+  assert.equal(storage.getItem('focus-agenda-details-mode'), 'sessions');
   await click('event-edit', { id: event.id });
   await click('event-done', { id: event.id });
   assert.equal(records()[event.id].done, true);

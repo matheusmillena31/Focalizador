@@ -1,4 +1,4 @@
-import { TYPES, ALERTS, COLORS, uid, dayKey, duration, timerElapsed, startTimer, toggleTimer, finishTimer, validateActivity, validateEvent, weekStart, statistics, calendarBody, googleEventId, calendarDays, shiftCalendarDate, dailyTaskTotals, taskDuration } from './domain.js';
+import { TYPES, ALERTS, COLORS, uid, dayKey, duration, timerElapsed, startTimer, toggleTimer, finishTimer, validateActivity, validateEvent, weekStart, statistics, calendarBody, googleEventId, calendarDays, shiftCalendarDate, eventsOnDay, dailyTaskTotals, taskDuration } from './domain.js';
 import { Store } from './store.js';
 import { Cloud, jsonFetch } from './cloud.js';
 import { requestAlerts, scheduleAlerts, checkBrowserAlerts, unlockAudio, alarmSound, stopSound, calendarToken, nativeBridge } from './platform.js';
@@ -18,6 +18,7 @@ let view = 'home';
 let activityQuery = '';
 let agendaDate = dayKey();
 let agendaMode = localStorage.getItem('focus-agenda-mode') === 'week' ? 'week' : 'month';
+let agendaDetailsMode = localStorage.getItem('focus-agenda-details-mode') === 'summary' ? 'summary' : 'sessions';
 let statsPeriod = 7;
 let syncStatus = cloud.session ? 'Aguardando sincronização' : window.focusStandalone?.temporary ? 'Teste temporário · exporte um backup' : 'Salvo neste dispositivo';
 let googleToken = null;
@@ -102,9 +103,13 @@ function dailyTasksView(tasks) {
   const max = Math.max(1, ...tasks.map(task => task.durationMs));
   return `<p class="daily-tasks-caption">Tempo planejado por tarefa. Abra uma tarefa para consultar ou editar seus horários.</p><div class="daily-tasks">${tasks.map(task => `<details class="daily-task ${task.urgent ? 'is-urgent' : ''} ${task.done ? 'is-done' : ''}"><summary><span class="daily-task-track" aria-hidden="true"><span class="daily-task-bar" style="width:${task.durationMs / max * 100}%"></span></span><span class="daily-task-label"><strong>${escape(task.title)}</strong><span class="daily-task-duration"> · ${taskDuration(task.durationMs)}</span>${task.done ? '<small>Concluída</small>' : ''}</span><span class="daily-task-chevron" aria-hidden="true">⌄</span></summary><div class="daily-task-periods">${task.events.map(eventRow).join('')}</div></details>`).join('')}</div>`;
 }
+function dailySessionsView(events) {
+  return `<p class="daily-sessions-caption">Sessões e compromissos em ordem cronológica.</p><div class="daily-sessions">${events.map(eventRow).join('')}</div>`;
+}
 function agendaView() {
   const allEvents = store.all('event');
   const activities = store.all('activity');
+  const sessions = eventsOnDay(allEvents, agendaDate);
   const tasks = dailyTaskTotals(allEvents, activities, agendaDate);
   const total = tasks.reduce((sum, task) => sum + task.durationMs, 0);
   const days = calendarDays(agendaDate, agendaMode);
@@ -124,7 +129,7 @@ function agendaView() {
     <div class="calendar-toolbar"><div class="calendar-period-controls">${button('date-today', 'Hoje', 'calendar-today')}<div class="calendar-arrows">${button('date-prev', '‹', 'calendar-arrow', `aria-label="${agendaMode === 'month' ? 'Mês anterior' : 'Semana anterior'}"`)}${button('date-next', '›', 'calendar-arrow', `aria-label="${agendaMode === 'month' ? 'Próximo mês' : 'Próxima semana'}"`)}</div></div><div class="calendar-period-title"><h2>${anchor.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}</h2><p>${agendaMode === 'week' ? `${dateText(new Date(`${days[0]}T12:00`))} – ${dateText(new Date(`${days[6]}T12:00`))}` : 'Planeje o mês. Cuide de um dia por vez.'}</p></div><div class="calendar-mode-switch" role="group" aria-label="Visualização da agenda">${[['week', 'Semana'], ['month', 'Mês']].map(([mode, label]) => button('calendar-mode', `${modeIcon(mode)}<span>${label}</span>`, agendaMode === mode ? 'is-active' : '', `data-mode="${mode}" aria-pressed="${agendaMode === mode}"`)).join('')}</div></div>
     <div class="calendar-weekday-labels">${['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'].map(label => `<span>${label}</span>`).join('')}</div><div class="calendar-grid ${agendaMode}-view" aria-label="Calendário por ${period}">${cells}</div>
     <div class="calendar-legend"><span><i class="legend-today"></i>Hoje</span><span><i class="legend-selected"></i>Dia selecionado</span><label class="date-picker">Ir para a data<input type="date" id="agenda-date" value="${agendaDate}" /></label></div>
-    <section class="day-events" id="agenda-details" aria-label="Tarefas do dia selecionado"><div class="day-events-heading"><div><span class="eyebrow">DIA SELECIONADO</span><h3>${anchor.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}</h3></div><span class="day-total">Tempo planejado: ${duration(total)}</span></div>${freeTimeView(allEvents)}${tasks.length ? dailyTasksView(tasks) : '<div class="empty-inline">✧<h3>Espaço para um bom dia.</h3><p>Nenhuma tarefa nesta data. Use + Compromisso para reservar um horário.</p></div>'}</section>
+    <section class="day-events" id="agenda-details" aria-label="Tarefas do dia selecionado"><div class="day-events-heading"><div><span class="eyebrow">DIA SELECIONADO</span><h3>${anchor.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}</h3></div><div class="day-events-controls"><div class="day-view-switch" role="group" aria-label="Modo de exibição do dia">${[['sessions', 'Sessões'], ['summary', 'Resumo']].map(([mode, label]) => button('agenda-details-mode', label, agendaDetailsMode === mode ? 'is-active' : '', `data-details-mode="${mode}" aria-pressed="${agendaDetailsMode === mode}"`)).join('')}</div><span class="day-total">Tempo planejado: ${duration(total)}</span></div></div>${freeTimeView(allEvents)}${sessions.length ? agendaDetailsMode === 'sessions' ? dailySessionsView(sessions) : dailyTasksView(tasks) : '<div class="empty-inline">✧<h3>Espaço para um bom dia.</h3><p>Nenhuma tarefa nesta data. Use + Compromisso para reservar um horário.</p></div>'}</section>
     </section><section class="card integration-card"><div><span class="eyebrow">GOOGLE AGENDA</span><h3>Seu planejamento, conectado.</h3><p>Envie compromissos e consulte os próximos eventos. A importação é somente para consulta.</p></div><div class="button-row">${button('google-connect', googleToken ? 'Reconectar Google' : 'Conectar Google', 'secondary')}${googleToken ? button('google-list', 'Atualizar eventos', 'primary') : ''}</div>${googleEvents.length ? `<div class="google-events">${googleEvents.map(event => `<div><strong>${escape(event.summary || 'Sem título')}</strong><small>${escape(event.start?.dateTime ? new Date(event.start.dateTime).toLocaleString('pt-BR') : event.start?.date || '')}</small></div>`).join('')}</div>` : ''}</section>`;
 }
 function routineConfig() { return store.get('routine-settings') || { days: WEEKDAYS.map(() => []), breakMinutes: 10 }; }
@@ -308,6 +313,7 @@ async function action(name, target) {
     editor.close(); confirmAction('Remover atividade?', 'O histórico das sessões será preservado.', () => { store.remove(id); changed('Atividade removida.'); });
   } else if (name === 'starter') { store.batch([['Xadrez', 'hobby', 180], ['Leitura', 'hobby', 120], ['Estudos', 'duty', 300]].map(([name, type, weeklyMinutes], index) => ({ id: uid(), kind: 'activity', name, type, weeklyMinutes, color: COLORS[index] }))); await changed('Atividades iniciais criadas. Você pode editar todas.'); }
   else if (name === 'calendar-mode') { if (!['week', 'month'].includes(target.dataset.mode)) return; agendaMode = target.dataset.mode; localStorage.setItem('focus-agenda-mode', agendaMode); render(); }
+  else if (name === 'agenda-details-mode') { if (!['sessions', 'summary'].includes(target.dataset.detailsMode)) return; agendaDetailsMode = target.dataset.detailsMode; localStorage.setItem('focus-agenda-details-mode', agendaDetailsMode); render(); }
   else if (name === 'pick-activity') {
     if (!store.all('activity').length) { activityEditor(); return; }
     dialog('A que você quer dedicar atenção?', `<label>Atividade<select name="activityId">${store.all('activity').map(activity => `<option value="${activity.id}">${escape(activity.name)}</option>`).join('')}</select></label>`, '▶ Começar', async data => { if (store.get('timer')) throw new Error('Já existe uma sessão aberta.'); await unlockAudio().catch(() => {}); store.put(startTimer(data.activityId)); await changed(); });

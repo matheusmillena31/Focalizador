@@ -10,6 +10,7 @@ const editor = document.querySelector('#editor');
 const alarm = document.querySelector('#alarm');
 const escape = value => String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 const icons = { home: '⌂', activities: '◈', agenda: '▦', stats: '▥', settings: '⚙', play: '▶', pause: 'Ⅱ', check: '✓', arrow: '↗' };
+const SESSION_SOURCES = { manual: 'Manual', timer: 'Cronômetro', routine: 'Rotina', agenda: 'Agenda' };
 let config = JSON.parse(localStorage.getItem('focus-config') || '{}');
 if (!config.projectId && !config.apiKey) config = { ...config, ...DEFAULT_CONNECTION };
 let cloud = new Cloud(config, sessionStorage);
@@ -182,7 +183,7 @@ function routinePreview() {
   const result = generateRoutine({ activities, events: store.all('event'), sessions: store.all('session'), settings, week: agendaDate });
   const namespace = store.namespace;
   const fingerprint = JSON.stringify([settings, activities]);
-  dialog('Sua semana, antes de confirmar', `<p class="muted">Semana de ${dateText(new Date(`${result.dates[0]}T12:00`))} a ${dateText(new Date(`${result.dates[6]}T12:00`))}. ${result.proposals.length} sessões sugeridas, com deveres primeiro. Desmarque o que não quiser ou ajuste os horários abaixo.</p>${result.proposals.map((item, index) => `<fieldset class="routine-proposal"><legend><label class="routine-keep"><input type="checkbox" name="keep-${index}" checked />${escape(item.title)} · ${TYPES[item.type]}</label></legend><div class="form-grid"><label>Início<input type="datetime-local" name="start-${index}" value="${localDateTime(item.start)}" required /></label><label>Fim<input type="datetime-local" name="end-${index}" value="${localDateTime(item.end)}" required /></label></div></fieldset>`).join('') || '<p class="inline-note">Nenhuma sessão coube nesta semana. Confira horários, metas e prazos, ou selecione uma semana futura no calendário.</p>'}${result.unmet.length ? `<section class="routine-unmet"><h3>O que ficou de fora</h3>${result.unmet.map(item => `<p><strong>${escape(item.name)}</strong>${item.minutes ? `: faltaram ${Math.ceil(item.minutes)} min` : ''}<br>${escape(item.reason)}</p>`).join('')}</section>` : ''}<label>Alertas para as novas sessões<select name="alert">${Object.entries(ALERTS).map(([key, value]) => `<option value="${key}"${selected(key, 'none')}>${value}</option>`).join('')}</select></label><p class="fine-print">As sessões serão compromissos normais, que você poderá editar ou remover na Agenda. A rotina só conta como tempo praticado após registrar uma sessão. A disponibilidade habitual permanece intacta.</p>`, 'Confirmar na agenda', async data => {
+  dialog('Sua semana, antes de confirmar', `<p class="muted">Semana de ${dateText(new Date(`${result.dates[0]}T12:00`))} a ${dateText(new Date(`${result.dates[6]}T12:00`))}. ${result.proposals.length} sessões sugeridas, com deveres primeiro. Desmarque o que não quiser ou ajuste os horários abaixo.</p>${result.proposals.map((item, index) => `<fieldset class="routine-proposal"><legend><label class="routine-keep"><input type="checkbox" name="keep-${index}" checked />${escape(item.title)} · ${TYPES[item.type]}</label></legend><div class="form-grid"><label>Início<input type="datetime-local" name="start-${index}" value="${localDateTime(item.start)}" required /></label><label>Fim<input type="datetime-local" name="end-${index}" value="${localDateTime(item.end)}" required /></label></div></fieldset>`).join('') || '<p class="inline-note">Nenhuma sessão coube nesta semana. Confira horários, metas e prazos, ou selecione uma semana futura no calendário.</p>'}${result.unmet.length ? `<section class="routine-unmet"><h3>O que ficou de fora</h3>${result.unmet.map(item => `<p><strong>${escape(item.name)}</strong>${item.minutes ? `: faltaram ${Math.ceil(item.minutes)} min` : ''}<br>${escape(item.reason)}</p>`).join('')}</section>` : ''}<label>Alertas para as novas sessões<select name="alert">${Object.entries(ALERTS).map(([key, value]) => `<option value="${key}"${selected(key, 'none')}>${value}</option>`).join('')}</select></label><p class="fine-print">As sessões serão compromissos normais, que você poderá editar ou remover na Agenda. Ao concluir uma sessão vinculada a uma atividade, você escolhe se deseja contabilizar o tempo agendado, informar o tempo real ou apenas concluir. A disponibilidade habitual permanece intacta.</p>`, 'Confirmar na agenda', async data => {
     if (store.namespace !== namespace || JSON.stringify([routineConfig(), store.all('activity')]) !== fingerprint) throw new Error('As preferências ou atividades mudaram. Feche esta prévia e gere novamente.');
     const accepted = result.proposals.filter((_item, index) => data[`keep-${index}`]).map(item => {
       const index = result.proposals.indexOf(item);
@@ -203,7 +204,7 @@ function statsView() {
   const days = Array.from({ length: statsPeriod }, (_, index) => { const date = new Date(from); date.setDate(date.getDate() + index); return date; });
   const max = Math.max(3600000, ...Object.values(stats.byDay));
   const sessions = store.all('session').filter(session => session.end > from.getTime()).sort((left, right) => right.start - left.start).slice(0, 50);
-  return `<div class="section-title"><h2>Tempo bem investido</h2><div class="segmented">${[7, 30].map(days => button('stats-period', `${days} dias`, statsPeriod === days ? 'chosen' : '', `data-period="${days}"`)).join('')}</div></div><div class="stats-counters"><section class="card"><span>Tempo registrado</span><h2>${duration(stats.total)}</h2></section><section class="card"><span>Sessões</span><h2>${stats.count}</h2></section><section class="card"><span>Dias ativos</span><h2>${Object.keys(stats.byDay).length}<small> / ${statsPeriod}</small></h2></section></div><section class="card chart-card"><h3>Seu ritmo, dia após dia</h3><p class="muted">Tempo concluído ou registrado manualmente. Sessões em andamento não entram no total.</p><div class="bar-chart ${statsPeriod === 30 ? 'month' : ''}" role="img" aria-label="Tempo diário em minutos">${days.map(date => { const amount = stats.byDay[dayKey(date)] || 0; return `<div class="chart-column" title="${dayKey(date)}: ${duration(amount)}"><span class="chart-value">${Math.round(amount / 60000)}<small>min</small></span><div class="bar-space"><div class="chart-bar" style="height:${Math.max(2, amount / max * 100)}%"></div></div><small>${statsPeriod === 7 ? date.toLocaleDateString('pt-BR', { weekday: 'short' }) : date.getDate()}</small></div>`; }).join('')}</div></section><section class="card"><h3>Por atividade</h3>${Object.entries(stats.byActivity).length ? Object.entries(stats.byActivity).sort((left, right) => right[1] - left[1]).map(([id, amount]) => { const activity = store.get(id) || store.all('session').find(session => session.activityId === id); return `<div class="distribution"><div><strong>${escape(activity?.name || activity?.activityName || 'Atividade removida')}</strong><span>${duration(amount)} · ${Math.round(amount / stats.total * 100)}%</span></div><div class="progress-track"><div style="width:${amount / stats.total * 100}%"></div></div></div>`; }).join('') : '<p class="muted">Suas estatísticas aparecem depois da primeira sessão.</p>'}</section><div class="section-title"><h2>Histórico recente</h2>${button('session-new', '+ Registro manual', 'secondary')}</div><section class="card history">${sessions.length ? sessions.map(session => `<article><span class="history-icon">✓</span><div><strong>${escape(session.activityName)}</strong><small>${new Date(session.start).toLocaleString('pt-BR')} · ${session.source === 'manual' ? 'Manual' : 'Cronômetro'}${session.note ? ` · ${escape(session.note)}` : ''}</small></div><b>${duration(session.durationMs)}</b>${button('session-delete', '×', 'icon-button', `data-id="${session.id}" aria-label="Remover registro"`)}</article>`).join('') : '<p class="muted">Você ainda não concluiu nenhuma sessão neste período.</p>'}</section>`;
+  return `<div class="section-title"><h2>Tempo bem investido</h2><div class="segmented">${[7, 30].map(days => button('stats-period', `${days} dias`, statsPeriod === days ? 'chosen' : '', `data-period="${days}"`)).join('')}</div></div><div class="stats-counters"><section class="card"><span>Tempo registrado</span><h2>${duration(stats.total)}</h2></section><section class="card"><span>Sessões</span><h2>${stats.count}</h2></section><section class="card"><span>Dias ativos</span><h2>${Object.keys(stats.byDay).length}<small> / ${statsPeriod}</small></h2></section></div><section class="card chart-card"><h3>Seu ritmo, dia após dia</h3><p class="muted">Tempo concluído ou registrado manualmente. Sessões em andamento não entram no total.</p><div class="bar-chart ${statsPeriod === 30 ? 'month' : ''}" role="img" aria-label="Tempo diário em minutos">${days.map(date => { const amount = stats.byDay[dayKey(date)] || 0; return `<div class="chart-column" title="${dayKey(date)}: ${duration(amount)}"><span class="chart-value">${Math.round(amount / 60000)}<small>min</small></span><div class="bar-space"><div class="chart-bar" style="height:${Math.max(2, amount / max * 100)}%"></div></div><small>${statsPeriod === 7 ? date.toLocaleDateString('pt-BR', { weekday: 'short' }) : date.getDate()}</small></div>`; }).join('')}</div></section><section class="card"><h3>Por atividade</h3>${Object.entries(stats.byActivity).length ? Object.entries(stats.byActivity).sort((left, right) => right[1] - left[1]).map(([id, amount]) => { const activity = store.get(id) || store.all('session').find(session => session.activityId === id); return `<div class="distribution"><div><strong>${escape(activity?.name || activity?.activityName || 'Atividade removida')}</strong><span>${duration(amount)} · ${Math.round(amount / stats.total * 100)}%</span></div><div class="progress-track"><div style="width:${amount / stats.total * 100}%"></div></div></div>`; }).join('') : '<p class="muted">Suas estatísticas aparecem depois da primeira sessão.</p>'}</section><div class="section-title"><h2>Histórico recente</h2>${button('session-new', '+ Registro manual', 'secondary')}</div><section class="card history">${sessions.length ? sessions.map(session => `<article><span class="history-icon">✓</span><div><strong>${escape(session.activityName)}</strong><small>${new Date(session.start).toLocaleString('pt-BR')} · ${SESSION_SOURCES[session.source] || 'Registrado'}${session.note ? ` · ${escape(session.note)}` : ''}</small></div><b>${duration(session.durationMs)}</b>${button('session-delete', '×', 'icon-button', `data-id="${session.id}" aria-label="Remover registro"`)}</article>`).join('') : '<p class="muted">Você ainda não concluiu nenhuma sessão neste período.</p>'}</section>`;
 }
 function settingsView() {
   const conflicts = Object.entries(store.state.conflicts);
@@ -232,6 +233,63 @@ function eventEditor(event) {
     if (validated.alert !== 'none' && (!event || event.alert === 'none')) { await unlockAudio().catch(() => {}); await requestAlerts(); }
     store.put({ ...event, id: event?.id || uid(), kind: 'event', ...validated }); await changed('Compromisso salvo.');
   }, event ? button('event-delete', 'Remover', 'danger text-button', `data-id="${event.id}"`) : '');
+}
+function sessionForEvent(event) {
+  const linked = event.completionSessionId ? store.get(event.completionSessionId) : null;
+  return linked?.sourceEventId === event.id ? linked : store.all('session').find(session => session.sourceEventId === event.id);
+}
+async function changeEventCompletion(event) {
+  const linkedSession = sessionForEvent(event);
+  if (event.done) {
+    editor.close();
+    if (!linkedSession) { store.put({ ...event, done: false, completionSessionId: '' }); await changed('Compromisso reaberto.'); return; }
+    confirmAction('Reabrir e retirar o tempo?', `Esta conclusão registrou ${duration(linkedSession.durationMs)} em ${linkedSession.activityName}. Ao reabrir, esse registro será removido do progresso.`, async () => {
+      store.batch([{ ...event, done: false, completionSessionId: '' }, { ...linkedSession, deleted: true }]);
+      await changed('Compromisso reaberto e tempo retirado do progresso.');
+    });
+    return;
+  }
+  if (linkedSession) {
+    store.put({ ...event, done: true, completionSessionId: linkedSession.id });
+    editor.close(); await changed('Compromisso concluído. O tempo já estava registrado.'); return;
+  }
+  const activityId = event.activityId || event.routineActivityId;
+  const activity = store.get(activityId);
+  if (!activity) {
+    store.put({ ...event, done: true, completionSessionId: '' });
+    editor.close(); await changed('Compromisso concluído sem contabilizar tempo, pois não há uma atividade vinculada.'); return;
+  }
+  const plannedMinutes = Math.max(1, Math.round((event.end - event.start) / 60000));
+  editor.close();
+  dialog('Concluir e registrar o progresso', `<p class="muted">Este compromisso está vinculado a <strong>${escape(activity.name)}</strong>. Escolha como deseja tratar o tempo realizado.</p><label>Ao concluir<select name="completion"><option value="scheduled">Contabilizar ${plannedMinutes} min agendados</option><option value="actual">Informar o tempo realmente dedicado</option><option value="none">Apenas marcar como concluído</option></select></label><div class="form-grid completion-time-fields"><label>Início real<input type="datetime-local" name="actualStart" value="${localDateTime(event.start)}" /></label><label>Tempo real (minutos)<input type="number" name="minutes" min="1" max="1440" step="1" value="${plannedMinutes}" /></label></div><p class="fine-print">Os campos de tempo real são usados somente na segunda opção. O Focalizador não permite registrar um período futuro ou contar duas sessões sobrepostas.</p>`, 'Concluir', async data => {
+    const current = store.get(event.id);
+    if (!current) throw new Error('Este compromisso não está mais disponível.');
+    if (current.done) throw new Error('Este compromisso já foi concluído em outro dispositivo.');
+    const currentActivity = store.get(current.activityId || current.routineActivityId);
+    const existing = sessionForEvent(current);
+    if (existing) { store.put({ ...current, done: true, completionSessionId: existing.id }); await changed('Compromisso concluído. O tempo já estava registrado.'); return; }
+    if (data.completion === 'none') { store.put({ ...current, done: true, completionSessionId: '' }); await changed('Compromisso concluído sem contabilizar tempo.'); return; }
+    if (!currentActivity) throw new Error('A atividade vinculada não está mais disponível. Escolha apenas concluir ou vincule outra atividade.');
+    if (!['scheduled', 'actual'].includes(data.completion)) throw new Error('Escolha como registrar a conclusão.');
+    let start = current.start;
+    let end = current.end;
+    if (data.completion === 'actual') {
+      const minutes = Number(data.minutes);
+      start = new Date(data.actualStart).getTime();
+      if (!Number.isFinite(start) || !Number.isInteger(minutes) || minutes < 1 || minutes > 1440) throw new Error('Informe um início válido e de 1 a 1.440 minutos.');
+      end = start + minutes * 60000;
+    }
+    const durationMs = end - start;
+    if (!Number.isFinite(start) || !Number.isFinite(end) || durationMs <= 0 || durationMs > 86400000) throw new Error('O período registrado deve ter entre 1 minuto e 24 horas.');
+    if (end > Date.now() + 60000) throw new Error('O tempo só pode ser contabilizado depois que o período terminar.');
+    if (store.all('session').some(session => start < session.end && end > session.start)) throw new Error('Já existe uma sessão registrada nesse período. Escolha apenas concluir para evitar contar tempo duas vezes.');
+    const timer = store.get('timer');
+    if (timer && start < Date.now() + 60000 && end > timer.originAt) throw new Error('Este período coincide com a sessão em andamento. Conclua o cronômetro primeiro.');
+    const linkedId = `event-session-${current.id}`;
+    const sessionId = linkedId.length <= 100 ? linkedId : uid();
+    store.batch([{ ...current, done: true, completionSessionId: sessionId }, { id: sessionId, kind: 'session', activityId: currentActivity.id, activityName: currentActivity.name, color: currentActivity.color, start, end, durationMs, source: current.routineActivityId ? 'routine' : 'agenda', sourceEventId: current.id, note: `Compromisso concluído: ${current.title}` }]);
+    await changed(`${duration(durationMs)} contabilizados em ${currentActivity.name}.`);
+  });
 }
 function manualSession() {
   if (!store.all('activity').length) { toast('Crie uma atividade antes de registrar tempo.'); return; }
@@ -324,7 +382,7 @@ async function action(name, target) {
   else if (name === 'session-delete') confirmAction('Remover registro?', 'O tempo desta sessão deixará de aparecer nas estatísticas.', () => { store.remove(id); changed('Registro removido.'); });
   else if (name === 'event-new') eventEditor();
   else if (name === 'event-edit') eventEditor(store.get(id));
-  else if (name === 'event-done') { const event = store.get(id); store.put({ ...event, done: !event.done }); editor.close(); await changed(); }
+  else if (name === 'event-done') { const event = store.get(id); if (event) await changeEventCompletion(event); }
   else if (name === 'event-delete') { editor.close(); confirmAction('Remover compromisso?', 'Ele será removido do Focalizador. Se você o enviou ao Google Agenda, a cópia no Google será mantida.', () => { store.remove(id); changed('Compromisso removido.'); }); }
   else if (name === 'event-ics') { await saveFile('compromisso.ics', icsText(store.get(id)), 'text/calendar'); toast('Arquivo de calendário preparado.'); }
   else if (name === 'event-google') { if (!confirm('Enviar a versão salva deste compromisso para sua agenda principal do Google? Salve primeiro se alterou campos neste formulário.')) return; await pushGoogle(store.get(id)); }

@@ -19,8 +19,16 @@ Projeto criado: **Focalizador** (`focalizador-3d5d3`).
 
 Se houver configuração personalizada de outro projeto salva no navegador, ela será preservada. Para usar este projeto, saia da conta e preencha Project ID e Web API Key em Ajustes > Configurar conexões, usando os valores de `src/project.js`. A chave Web identifica o projeto e não substitui a autenticação ou as regras do banco.
 
-## O que ainda falta para o celular
+## Site publicado
 
-O projeto Firebase está criado e configurado. O site ainda não foi publicado e não há link de aplicativo disponível no celular. O próximo passo é publicar somente a interface no Firebase Hosting, para usar o mesmo endereço e a mesma conta nos dois dispositivos. Não foi criada senha nem conta de aplicativo em seu nome, e seus registros pessoais ainda não foram enviados ao banco por este processo de configuração.
+O projeto Firebase está criado e configurado, e a interface está disponível em
+[https://focalizador-3d5d3.web.app](https://focalizador-3d5d3.web.app). Para
+publicar uma atualização, execute `Publicar no Firebase.cmd` ou
+`node scripts/publish-firebase.mjs` a partir da raiz do repositório. O processo
+gera novamente a interface e publica somente o conteúdo de `web-public`.
+
+Não existe senha ou conta pessoal embutida no código. Os registros só chegam ao
+Firestore depois que o usuário cria ou acessa sua conta e solicita a
+sincronização.
 
 Na versão atual, a sincronização ocorre com o aplicativo aberto. A sessão da conta dura até fechar completamente a página/aplicativo; entre novamente quando necessário. Alarmes com a página fechada dependem da versão nativa Android.

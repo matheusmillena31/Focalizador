@@ -1,5 +1,23 @@
 # Focalizador · versão 0.1
 
+[![Validar projeto](https://github.com/matheusmillena31/Focalizador/actions/workflows/ci.yml/badge.svg)](https://github.com/matheusmillena31/Focalizador/actions/workflows/ci.yml)
+
+Aplicativo pessoal de foco e disciplina para Web, Windows e Android. O código
+do projeto fica na raiz do repositório e utiliza Node.js **22.12 ou superior**.
+
+## Começar pelo código-fonte
+
+```powershell
+git clone https://github.com/matheusmillena31/Focalizador.git
+cd Focalizador
+npm ci
+npm test
+npm run build
+```
+
+Para testar sem instalar dependências, abra `Focalizador.html`. O arquivo é
+gerado pelo build e reúne a interface e o código em uma versão independente.
+
 ## Agenda por horas de cada tarefa
 
 O planejador usa limites fixos de **15 a 50 minutos por período**; os campos de duração mínima/máxima foram removidos das preferências. Valores antigos de duração deixam de orientar as novas sugestões. Prioridade, meta semanal, dias desejados e prazo opcional continuam disponíveis.
@@ -214,6 +232,15 @@ npm test
 npm run build
 ```
 
-Esses dois comandos funcionam sem instalar dependências. A geração de Windows/Android exige `npm install` e os pré-requisitos nativos. Não há `package-lock.json` nesta entrega porque o download de dependências foi bloqueado no ambiente de desenvolvimento; o primeiro `npm install` resolverá as versões compatíveis especificadas e criará o arquivo para futuras instalações reproduzíveis.
+Esses dois comandos funcionam sem instalar dependências. Para gerar as versões
+Windows ou Android, use `npm ci` e instale os pré-requisitos nativos. O
+`package-lock.json` faz parte do repositório para manter instalações
+reproduzíveis. A validação automática do GitHub executa instalação, auditoria
+das dependências de produção, testes e build em cada pull request para `main`.
+
+## Licença
+
+Código disponibilizado para visualização e avaliação de portfólio. Nenhuma
+licença de reutilização é concedida sem autorização prévia; consulte `LICENSE`.
 
 Nesta entrega, os testes automatizados usam serviços simulados: não se criou conta Firebase, não se autorizou uma conta Google e não se enviaram dados pessoais a esses serviços. O acesso ao navegador de teste falhou; a renderização visual e a compilação/execução em dispositivos reais Android e Windows devem ser verificadas após instalar as dependências. Não há APK ou EXE já compilado incluído.

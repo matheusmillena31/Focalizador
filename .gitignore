@@ -1,0 +1,27 @@
+node_modules/
+release/
+android/
+.firebase/
+.env
+.env.*
+!.env.example
+
+# Credenciais e assinaturas locais
+*.keystore
+*.jks
+*.p12
+*.pfx
+
+# Logs e arquivos temporários
+firebase-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+

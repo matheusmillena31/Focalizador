@@ -1,0 +1,20 @@
+FOCALIZADOR - TESTAR SEM INSTALAR
+
+1. Extraia todo o ZIP para uma pasta.
+2. Abra Focalizador.html no Chrome ou Edge do seu computador.
+   Se o Windows esconder extensoes, ele pode aparecer apenas como Focalizador.
+3. Clique em Nova atividade ou Usar atividades iniciais.
+
+Esse arquivo nao usa CMD, Node.js, internet ou porta 4173 para os recursos locais.
+Nao e necessario abrir 127.0.0.1 nem executar index.html.
+Iniciar Focalizador.cmd tambem abre o HTML independente.
+
+Guarde backups em Ajustes > Exportar backup.
+Se houver aviso de armazenamento bloqueado, exporte antes de fechar a pagina:
+nesse caso, os registros existem apenas durante o teste.
+Ao mover o arquivo ou trocar de navegador, use backup para transferir registros.
+
+Para testar alarmes nesta versao, mantenha a pagina aberta.
+Alertas com o aplicativo fechado exigem a versao nativa, descrita no README.
+
+O modo anterior continua disponivel em Iniciar com servidor.cmd, mas e opcional.

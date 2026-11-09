@@ -1,0 +1,32 @@
+{
+  "name": "focalizador",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Foco, atividades e agenda pessoal para Android e Windows",
+  "author": "Focalizador",
+  "type": "module",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "build:standalone": "node scripts/build-standalone.mjs",
+    "preview": "node scripts/serve.mjs dist",
+    "test": "node --test tests/*.test.js",
+    "desktop": "npm run build && electron .",
+    "windows": "npm run build && electron-builder --win portable --publish never",
+    "android:init": "npm run build && cap add android && node scripts/android-setup.mjs && cap sync android",
+    "android:sync": "npm run build && cap sync android",
+    "android:open": "cap open android"
+  },
+  "dependencies": { "@capacitor/core": "^7.4.0", "@capacitor/android": "^7.4.0" },
+  "devDependencies": { "@capacitor/cli": "^7.4.0", "electron": "^39.0.0", "electron-builder": "^26.0.12" },
+  "build": {
+    "appId": "com.focalizador.personal",
+    "productName": "Focalizador",
+    "directories": { "output": "release" },
+    "files": ["dist/**/*", "desktop/**/*", "package.json"],
+    "win": { "target": "portable", "signAndEditExecutable": false },
+    "portable": { "artifactName": "Focalizador-${version}-Windows.exe" }
+  }
+}

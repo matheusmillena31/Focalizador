@@ -1,0 +1,7 @@
+{
+  "appId": "com.focalizador.personal",
+  "appName": "Focalizador",
+  "webDir": "dist",
+  "android": { "backgroundColor": "#f4f8ff" },
+  "plugins": { "LocalNotifications": { "smallIcon": "ic_stat_focus", "iconColor": "#2563eb" } }
+}

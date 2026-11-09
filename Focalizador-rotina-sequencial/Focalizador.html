@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2563eb" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-YlHGS19uh7PhXIxYaXR9QmZoGvP9MeFNVVMqamCHT4c='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com wss://*.firebaseio.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'" />
+  <title>Focalizador · Seu tempo, com intenção</title>
+  <style>:root{font-family:"Segoe UI",Arial,sans-serif;color:#17294d;background:#f4f7fc;font-synthesis:none;--blue:#2563eb;--muted:#76849b;--line:#e6ecf5;--surface:#fff}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button{cursor:pointer;border:0;transition:background .15s,transform .15s;touch-action:manipulation}button:hover{filter:brightness(.97)}button:active{transform:translateY(1px)}button:disabled{opacity:.5;cursor:default}button:focus-visible,a:focus-visible{outline:3px solid #70a5fb;outline-offset:3px}a{color:inherit;text-decoration:none}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(26px,2.7vw,38px);letter-spacing:-1.4px;line-height:1.2;margin-bottom:12px;font-weight:650}h2{font-size:21px;letter-spacing:-.5px}h3{font-size:18px;letter-spacing:-.3px}p{line-height:1.65}small{font-size:12px}#app{display:flex;min-height:100vh}.sidebar{width:248px;position:fixed;inset:0 auto 0 0;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;padding:38px 22px 24px;z-index:20}.brand{display:flex;gap:10px;align-items:center;font-size:23px;font-weight:700;letter-spacing:-1px;padding:0 8px}.brand small{display:block;font-size:8px;font-weight:600;letter-spacing:2px;margin-top:5px;color:#97a3b9}.brand-icon{font-size:39px;color:var(--blue)}.sidebar nav{display:grid;gap:9px;margin-top:48px}.nav-item{display:flex;gap:16px;align-items:center;padding:15px 18px;text-align:left;color:#78859b;background:transparent;border-radius:13px;font-size:14px;font-weight:600}.nav-item>span:first-child{font-size:23px;width:24px;text-align:center;line-height:1}.nav-item.active{background:#edf4ff;color:#2563eb}.sidebar-note{margin-top:auto;background:linear-gradient(140deg,#edf4ff,#f5f9ff);padding:22px 20px;border-radius:20px;margin-bottom:28px}.sidebar-note strong{font-size:15px;line-height:1.6}.sidebar-note p{font-size:12px;color:#8996ac;margin:12px 0 0}.mini-star{display:block;font-size:30px;color:#79a7ef;margin-bottom:13px}.profile{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);background:transparent;padding:22px 0 0;text-align:left;color:#354b6b}.profile>span:last-child{margin-left:auto}.profile strong{display:block;font-size:12px}.profile small{display:block;margin-top:4px;color:#8d9ab0;font-size:10px}.avatar{border-radius:50%;width:35px;height:35px;background:#dceaff;color:#4975bb;display:grid;place-items:center;font-weight:600}main{width:calc(100% - 248px);max-width:1680px;margin-left:248px;padding:0 48px 30px}.topbar{height:100px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:16px}.eyebrow{font-size:10px;color:#8492a7;font-weight:600;letter-spacing:1.7px;text-transform:uppercase}.topbar>.eyebrow{text-transform:capitalize;letter-spacing:.2px;font-size:12px}.sync-state{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);padding:9px 13px;border-radius:22px;font-size:11px;color:#8491a7;max-width:50%;text-align:left}.status-dot{height:6px;width:6px;background:#a4b1c6;border-radius:50%;flex-shrink:0}.status-dot.online{background:#31b493}.page-heading{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:38px 0 30px}.page-heading .eyebrow{margin-bottom:13px;font-size:9px;color:#6b91cb}.page-heading p:last-child{font-size:13px;color:#8a96a9;margin-bottom:0}.primary,.secondary,.white,.glass,.soft-button{padding:12px 18px;border-radius:11px;font-size:12px;font-weight:600;white-space:nowrap}.primary{background:#2866e9;color:#fff;box-shadow:0 5px 13px #2563eb19}.secondary{background:#f3f7fe;border:1px solid #e0e9f8;color:#4b6a98}.white{background:#fff;color:#2868d6;padding:13px 23px}.glass{background:#ffffff1a;color:#fff;border:1px solid #ffffff55}.text-button{color:#4f7fca;background:transparent;padding:6px 0;font-size:11px;font-weight:600}.icon-button{width:32px;height:32px;border-radius:10px;background:transparent;color:#9ba9bc;font-size:20px;flex-shrink:0}.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);gap:22px}.focus-card{position:relative;overflow:hidden;background:linear-gradient(112deg,#3a85f5 0%,#2160dc 90%);color:white;padding:28px 30px;border-radius:23px;box-shadow:0 12px 30px #3a7ce51a;min-height:321px}.focus-top{display:flex;justify-content:space-between;position:relative;z-index:1}.pill{font-size:9px;letter-spacing:1.6px;background:#ffffff21;border:1px solid #ffffff2a;padding:7px 10px;border-radius:7px}.orbital{font-size:25px;opacity:.65;line-height:1}.focus-caption{font-size:11px;color:#d4e6ff;margin:21px 0 6px}.focus-card h2{font-size:22px;letter-spacing:-.6px;margin-bottom:14px;font-weight:550;max-width:90%;position:relative;z-index:1;overflow-wrap:anywhere}.timer{font-size:49px;font-weight:300;letter-spacing:2px;font-variant-numeric:tabular-nums;line-height:1.15;position:relative;z-index:1}.timer-status{font-size:10px;color:#c1d9ff;margin-top:9px}.focus-actions{display:flex;gap:10px;margin-top:20px;position:relative;z-index:2}.focus-decoration{width:310px;height:310px;border:1px solid #ffffff15;position:absolute;right:-135px;top:45px;border-radius:50%;box-shadow:0 0 0 35px #ffffff05,0 0 0 72px #ffffff04,0 0 0 110px #ffffff03}.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:25px}.week-summary{padding:28px;display:flex;flex-direction:column}.section-label{display:flex;justify-content:space-between;align-items:center;color:#8695ad;font-size:9px;letter-spacing:1.6px;font-weight:600}.subtle-icon{font-size:20px;background:#f2f7fe;width:30px;height:30px;display:grid;place-items:center;border-radius:9px;color:#96b8ed}.week-summary h2{font-size:32px;margin:18px 0 4px;letter-spacing:-1px;font-weight:600}.week-summary>p{font-size:11px;color:#9aa6b8}.mini-chart{height:100px;display:flex;justify-content:space-between;align-items:flex-end;gap:8px;margin-top:auto;padding:0 3px}.mini-column{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px}.mini-bar{width:100%;max-width:24px;border-radius:5px 5px 2px 2px;background:#d5e6ff;min-height:5px}.mini-bar.today{background:#4f91f2}.mini-column small{font-size:9px;color:#a6b1c2}.mini-value{font-size:7px;color:#9aa6b8;white-space:nowrap;min-height:9px}.summary-foot{display:flex;justify-content:space-between;padding-top:18px;margin-top:17px;border-top:1px solid #f0f3f9;font-size:9px;color:#a0acbe}.summary-foot strong{color:#4e6385;font-size:11px}.metric-strip{display:grid;grid-template-columns:repeat(3,1fr);margin:24px 0 32px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px 0}.metric-strip>div{display:flex;align-items:center;gap:12px;padding:0 25px;border-right:1px solid var(--line)}.metric-strip>div:last-child{border:0}.metric-icon{font-size:23px;color:#5a96ed;border-radius:12px;background:#eef5ff;width:43px;height:43px;display:grid;place-items:center}.metric-icon.purple{background:#f3efff;color:#a493dd}.metric-icon.cyan{background:#edfafc;color:#78b9c9}.metric-strip small{display:block;color:#8c99ae;font-size:10px;margin-bottom:7px}.metric-strip strong{font-weight:600;font-size:16px}.metric-strip em{font-style:normal;font-size:9px;color:#a7b1c1;font-weight:400;margin-left:4px}.section-title{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:30px 0 18px}.section-title h2{font-size:19px;margin:0}.section-title h2 span{display:block;font-weight:400;font-size:11px;color:#9aa6b8;margin-top:8px;letter-spacing:0}.activity-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.activity-card{padding:21px}.activity-top{display:flex;align-items:center;gap:8px;margin-bottom:18px}.activity-top .icon-button{margin-left:auto}.activity-symbol{color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,white);display:grid;place-items:center;font-size:25px;width:43px;height:43px;border-radius:13px}.type-pill{font-size:9px;color:#9aa6b9;background:#f6f8fc;border:1px solid #eef2f8;border-radius:6px;padding:4px 7px}.activity-card h3{font-size:16px;margin-bottom:6px;overflow-wrap:anywhere}.muted{color:#8b99ae;font-size:12px}.activity-card .muted{font-size:10px;margin-bottom:17px}.progress-track{height:5px;background:#eef3fb;border-radius:10px;overflow:hidden}.progress-track>div{height:100%;background:#65a0f5;border-radius:10px}.activity-bottom{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:18px}.activity-bottom small{font-size:9px;color:#a1adbf}.soft-button{color:#447bd4;background:#eff5ff;font-size:10px;padding:8px 10px}.upcoming{padding:8px 24px}.event-row{display:flex;align-items:center;gap:17px;padding:18px 0;border-bottom:1px solid #f0f3f8}.event-row:last-child{border:0}.event-time{width:49px;flex-shrink:0}.event-time strong{display:block;font-size:13px}.event-time small{display:block;color:#a3aec0;font-size:9px;margin-top:4px}.event-line{height:35px;width:3px;background:#75a8f4;border-radius:3px}.event-line.urgent{background:#df9a6e}.event-detail{flex:1;min-width:0}.event-detail>strong{display:block;font-size:12px;overflow-wrap:anywhere}.event-detail>small{display:block;font-size:10px;color:#9ba7ba;margin-top:6px}.completed .event-detail strong{text-decoration:line-through;color:#aab3c4}.page-footer{display:flex;justify-content:space-between;color:#b2bdce;font-size:9px;margin-top:42px;padding-top:20px;border-top:1px solid var(--line)}.empty{text-align:center;padding:32px;margin:12px 0}.empty h3{margin-bottom:7px}.empty p{font-size:12px;color:#8b9ab0}.empty-symbol{font-size:33px;color:#72a0e5;margin-bottom:10px}.button-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.empty .button-row{justify-content:center}.segmented{display:flex;background:#eaf0fa;padding:4px;border-radius:11px;gap:3px}.segmented button{background:transparent;padding:8px 17px;color:#93a1b7;font-size:11px;border-radius:8px}.segmented button.chosen{background:white;color:#3f71bc;box-shadow:0 1px 4px #1b3a7610}.inline-note{background:#eaf2ff;border:1px solid #d8e6ff;border-radius:14px;padding:18px;color:#6487bc;font-size:12px;margin-top:24px}.inline-note button{margin-left:12px}.calendar-toolbar{display:flex;justify-content:space-between;align-items:center}.calendar-toolbar h2{text-transform:capitalize;font-size:20px;margin:0}.week-days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;padding:27px 0}.day{background:#f7f9fd;border-radius:16px;padding:15px 4px;display:flex;flex-direction:column;align-items:center;gap:10px;color:#8f9db3}.day small{text-transform:uppercase;font-size:9px;letter-spacing:.5px}.day strong{font-size:21px;font-weight:500}.day span{font-size:13px;line-height:8px;color:#6d9ee8}.day.selected{color:#fff;background:linear-gradient(#61a0f5,#2b6be6);box-shadow:0 8px 18px #3479ea25}.day.selected span{color:white}.date-picker{display:flex;align-items:center;gap:15px;color:#8b9ab0;font-size:11px}.date-picker input{padding:8px;width:auto}.day-events{margin-top:20px}.empty-inline{text-align:center;color:#9bb1d3;padding:30px}.empty-inline h3{color:#5c759a;margin-top:10px;font-size:16px}.empty-inline p{font-size:12px}.integration-card{display:flex;gap:20px;justify-content:space-between;align-items:center;margin-top:22px;flex-wrap:wrap}.integration-card h3{margin:10px 0 6px}.integration-card p{font-size:12px;color:#8c9bb0;margin:0}.google-events{width:100%;border-top:1px solid var(--line);padding-top:10px}.google-events>div{padding:12px 0;font-size:12px}.google-events small{display:block;color:#8f9cb0;margin-top:5px}.stats-counters{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:20px}.stats-counters span{font-size:11px;color:#8c9bb1}.stats-counters h2{font-size:29px;margin:13px 0 0}.stats-counters h2 small{color:#a5b1c3;font-weight:400}.chart-card{margin-bottom:20px}.chart-card h3{margin-bottom:5px}.bar-chart{display:flex;gap:18px;height:225px;padding-top:20px}.chart-column{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;color:#9aa8bd;min-width:0}.chart-column>small{font-size:10px}.chart-value{font-size:10px;white-space:nowrap;color:#8098b9}.chart-value small{font-size:8px;margin-left:2px}.bar-space{height:150px;width:100%;display:flex;align-items:flex-end;justify-content:center;border-bottom:1px solid #e9eff8}.chart-bar{background:linear-gradient(#9bc6ff,#4f91ef);width:45%;max-width:40px;border-radius:7px 7px 0 0}.bar-chart.month{gap:5px;overflow-x:auto}.month .chart-column{min-width:19px}.month .chart-value small{display:none}.month .chart-value{font-size:8px}.month .chart-bar{width:80%}.distribution{margin:22px 0}.distribution>div:first-child{display:flex;justify-content:space-between;font-size:12px;gap:10px;margin-bottom:12px}.distribution span{color:#95a3b8;font-size:11px}.history article{display:flex;align-items:center;gap:15px;padding:16px 0;border-bottom:1px solid #f0f3f8}.history article:last-child{border:0}.history article>div{flex:1;min-width:0}.history strong{display:block;font-size:12px}.history small{display:block;color:#9ba8bc;font-size:10px;margin-top:5px;overflow-wrap:anywhere}.history b{font-size:12px;white-space:nowrap}.history-icon{background:#f0f8f5;color:#79af9e;border-radius:11px;width:34px;height:34px;display:grid;place-items:center}.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.settings-grid h2{font-size:21px;line-height:1.4;margin:14px 0}.settings-grid .button-row{margin-top:22px}.fine-print{font-size:10px;color:#9aa8bc;line-height:1.75;margin:17px 0 0}.status-text{font-size:11px;color:#7ba0d5}.conflict-card{margin-top:20px}.conflict-card article{border-top:1px solid var(--line);padding-top:18px}.conflict-comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px}.conflict-comparison pre{font-size:10px;overflow:auto;max-height:200px;background:#f5f8fc;padding:12px}.conflict-comparison strong{font-size:11px}dialog{border:1px solid #e2eaf8;border-radius:24px;padding:29px;color:#263e62;max-width:min(560px,calc(100vw - 30px));width:100%;max-height:90vh;box-shadow:0 30px 100px #1532682b}dialog::backdrop{background:#18366355;backdrop-filter:blur(5px)}.dialog-heading{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:25px;gap:10px}.dialog-heading h2{font-size:23px;line-height:1.3;margin:0}.dialog-heading .eyebrow{font-size:8px;color:#7fa2d2}.dialog-heading .icon-button{font-size:25px}.dialog-actions{display:flex;justify-content:flex-end;gap:15px;align-items:center;margin-top:27px}.dialog-actions .danger{margin-right:auto}.dialog-actions .text-button{font-size:11px}label{display:block;color:#7b8fae;font-size:11px;margin-bottom:17px;font-weight:500}input,select,textarea{display:block;width:100%;padding:12px;border:1px solid #e1e9f6;border-radius:10px;background:#f8faff;color:#2e496f;margin-top:8px;outline:none;min-width:0}input:focus,select:focus,textarea:focus{border-color:#82b3f7;box-shadow:0 0 0 3px #7aadfa14}textarea{resize:vertical}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.form-error{color:#ba6262;font-size:12px;margin-top:18px}.color-picker{padding:0;border:0;display:flex;gap:13px;margin-top:20px}.color-picker legend{font-size:11px;color:#7b8fae;margin-bottom:12px}.color-picker label{margin:0;position:relative}.color-picker input{position:absolute;opacity:0;width:27px;height:27px;margin:0}.color-picker span{display:block;width:28px;height:28px;background:var(--swatch);border-radius:50%;border:4px solid white;outline:1px solid #e1e9f5}.color-picker input:checked+span{outline:2px solid var(--swatch)}.color-picker input:focus-visible+span{outline:3px solid #17294d}.danger{color:#c87878}.event-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.event-tools button{font-size:10px;padding:9px}.alarm-content{text-align:center;padding:20px 10px}.alarm-content h2{font-size:25px;overflow-wrap:anywhere}.alarm-content p{color:#8f9eb3}.alarm-content .primary{margin-top:15px}#toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);background:#213c64;color:white;padding:15px 22px;border-radius:14px;font-size:12px;z-index:1000;opacity:0;pointer-events:none;transition:.2s;max-width:90%;box-shadow:0 10px 30px #203b6422}#toast.visible{opacity:1;transform:translate(-50%,0)}.bottom-nav,.mobile-brand{display:none}@media(min-width:1550px){main{padding-left:65px;padding-right:65px}.focus-card{min-height:340px}.timer{font-size:56px}}@media(max-width:1150px){.sidebar{width:210px;padding-left:14px;padding-right:14px}.brand{font-size:20px}main{margin-left:210px;width:calc(100% - 210px);padding-left:28px;padding-right:28px}.dashboard-grid{grid-template-columns:1.4fr 1fr;gap:16px}.focus-card{padding:25px}.focus-card h2{font-size:19px}.timer{font-size:40px}.metric-strip>div{padding:0 14px}.metric-strip em{display:none}.activity-grid{gap:12px}.activity-card{padding:16px}.activity-bottom{flex-wrap:wrap}.week-summary{padding:24px}}@media(max-width:900px){.sidebar{width:80px;padding:28px 10px}.brand{padding:0;justify-content:center}.brand>span:last-child,.sidebar .nav-item>span:last-child,.sidebar-note,.profile{display:none}.sidebar nav{margin-top:35px}.sidebar .nav-item{padding:15px;justify-content:center}.sidebar .nav-item>span:first-child{width:24px}.brand-icon{font-size:40px}main{margin-left:80px;width:calc(100% - 80px);padding:0 24px 24px}.page-heading{padding-top:30px}.activity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.activity-grid .activity-card:last-child:nth-child(3){display:block}.settings-grid{grid-template-columns:1fr}.focus-actions{flex-wrap:wrap}.dashboard-grid{grid-template-columns:1.3fr 1fr}.week-summary h2{font-size:26px}.metric-strip strong{font-size:14px}.metric-icon{width:34px;height:34px;flex-shrink:0}.metric-strip>div{gap:9px}.metric-strip small{font-size:9px}}@media(max-width:640px){body{background:#f4f8ff}.sidebar{display:none}main{margin:0;width:100%;padding:0 20px 95px}.topbar{height:78px;border-bottom:0}.topbar>.eyebrow{display:none}.mobile-brand{display:block;font-size:22px;font-weight:700;letter-spacing:-1px;color:#2c64be}.sync-state{max-width:44%;font-size:9px;border:0;background:transparent;padding:0}.page-heading{padding:15px 0 25px;align-items:flex-start;gap:8px}.page-heading .eyebrow{font-size:8px;letter-spacing:1.1px;margin-bottom:10px}h1{font-size:27px;letter-spacing:-1px}.page-heading p:last-child{font-size:11px;max-width:270px}.page-heading>.primary{font-size:0;width:35px;height:35px;padding:0;border-radius:11px;flex-shrink:0;margin-top:25px}.page-heading>.primary::before{content:'+';font-size:24px;font-weight:400}.dashboard-grid{grid-template-columns:1fr;gap:17px}.focus-card{padding:24px 25px;min-height:313px;border-radius:24px}.focus-card h2{font-size:21px;max-width:100%}.timer{font-size:48px}.focus-caption{margin-top:23px}.focus-actions{margin-top:21px}.week-summary{padding:23px;position:relative;min-height:210px}.week-summary h2{font-size:28px;margin-top:13px}.week-summary>p{font-size:10px}.mini-chart{position:absolute;right:20px;top:45px;width:42%;height:105px;gap:6px}.summary-foot{margin-top:15px;padding-top:17px;font-size:10px}.mini-value{font-size:6px}.metric-strip{margin:19px 0 25px;padding:19px 0;border-radius:18px;gap:0}.metric-strip>div{flex-direction:column;align-items:flex-start;gap:11px;padding:0 14px}.metric-strip strong{font-size:14px}.metric-strip small{font-size:8px;white-space:nowrap}.metric-icon{width:31px;height:31px;font-size:19px;border-radius:10px}.section-title{margin-top:26px;gap:10px}.section-title h2{font-size:18px}.section-title h2 span{font-size:10px;line-height:1.5}.section-title>.text-button{font-size:10px;white-space:nowrap}.activity-grid{grid-template-columns:1fr;gap:12px}.activity-card{padding:20px}.activity-top{margin-bottom:12px}.activity-card h3{font-size:18px}.activity-card .muted{font-size:11px}.activity-bottom{margin-top:14px;flex-wrap:nowrap}.activity-bottom small{font-size:10px}.soft-button{font-size:11px;padding:10px 14px}.upcoming{padding:6px 19px}.event-row{gap:12px}.event-detail>strong{font-size:12px}.event-detail>small{font-size:9px;line-height:1.6}.event-time strong{font-size:12px}.page-footer{font-size:8px;margin-top:26px}.bottom-nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-around;background:#ffffffed;border-top:1px solid #e5ecf6;backdrop-filter:blur(18px);padding:8px 5px max(10px,env(safe-area-inset-bottom));z-index:30}.bottom-nav .nav-item{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:8px 10px;border-radius:12px;font-size:8px;min-width:55px}.bottom-nav .nav-item>span:first-child{font-size:22px}.bottom-nav .active{background:transparent}.bottom-nav .active>span:first-child{color:white;background:#4d8bf0;border-radius:10px;width:32px;height:29px;display:grid;place-items:center;box-shadow:0 4px 10px #4d8bf030}.segmented button{font-size:10px;padding:8px 11px}.section-title>.secondary{font-size:10px;padding:10px}.calendar-card{padding:20px 15px}.calendar-toolbar h2{font-size:17px}.calendar-toolbar .button-row{gap:3px}.calendar-toolbar .secondary{padding:7px 11px;font-size:10px}.week-days{gap:5px;padding:23px 0}.day{padding:13px 3px;border-radius:12px}.day small{font-size:7px}.day strong{font-size:19px}.card{border-radius:20px}.integration-card{padding:22px}.stats-counters{gap:9px}.stats-counters .card{padding:17px 12px;border-radius:16px}.stats-counters span{font-size:8px}.stats-counters h2{font-size:21px;margin-top:12px;letter-spacing:-.8px}.stats-counters h2 small{font-size:9px}.chart-card{padding:21px 17px}.chart-card h3{font-size:16px}.chart-card p{font-size:10px}.bar-chart{gap:10px}.chart-value{font-size:8px}.chart-column>small{font-size:8px}.chart-bar{width:70%}.history{padding:10px 17px}.history article{gap:10px}.history b{font-size:10px}.history small{font-size:9px}.settings-grid .card{padding:24px}.settings-grid h2{font-size:21px}.form-grid{grid-template-columns:1fr;gap:0}dialog{padding:24px 21px;max-height:86vh}.dialog-heading h2{font-size:21px}.dialog-actions{gap:10px}.dialog-actions .primary{font-size:11px;padding:12px 15px}.color-picker{margin-bottom:5px}#toast{bottom:95px;width:max-content;max-width:calc(100% - 30px);font-size:11px}.conflict-comparison{grid-template-columns:1fr}.history-icon{display:none}.event-tools{gap:7px}.empty{padding:27px 17px}.empty .button-row{gap:8px}.empty .button-row button{font-size:11px;padding:11px 14px}}@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.muted,.fine-print,.page-heading p:last-child,.settings-grid .status-text,.integration-card p,.day-events .daily-tasks-caption{color:#596b85}
+label,.color-picker legend{color:#596b85}
+.event-detail>small,.history small,.activity-bottom small,.activity-card .muted,.metric-strip small,.summary-foot,.section-title h2 span{color:#65758e}
+.history strong,.distribution strong,.google-events strong{overflow-wrap:anywhere;min-width:0}
+.dialog-status{color:#355f9a;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.dialog-status:empty{display:none}
+.dialog-heading .icon-button{width:40px;height:40px;background:#f3f7fe;color:#5a7192}
+@media(max-width:640px){input,select,textarea{font-size:16px}.metric-strip strong{white-space:nowrap}.metric-strip>div{padding-left:10px;padding-right:10px}.metric-strip small{white-space:normal}.fine-print{font-size:11px}.dialog-status{font-size:12px}}
+@media(max-width:420px){.week-summary .mini-chart{position:static;width:100%;margin-top:15px;height:100px}.week-summary{min-height:0}.metric-strip strong{font-size:12px}}
+.event-time{width:100px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.event-time strong{white-space:nowrap}
+@media(max-width:640px){.event-time{width:88px}.daily-task-periods .event-row{flex-wrap:wrap}.daily-task-periods .event-detail{flex-basis:calc(100% - 150px)}}
+
+[hidden]{display:none!important}
+.calendar-redesign{padding:28px}
+.calendar-redesign .calendar-toolbar{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin-bottom:28px}
+.calendar-period-controls{display:flex;align-items:center;gap:14px}
+.calendar-today{border:1px solid #dce7fa;background:#fff;color:#3465a9;border-radius:11px;padding:10px 18px;font-size:12px;font-weight:600;box-shadow:0 2px 5px #1b4c8c05}
+.calendar-arrows{display:flex;gap:4px}
+.calendar-arrow{width:32px;height:34px;border-radius:9px;background:#f5f8fe;color:#6b8cb9;font-size:23px;line-height:1}
+.calendar-period-title{text-align:center}
+.calendar-period-title h2{font-size:21px;margin:0;text-transform:capitalize}
+.calendar-period-title p{font-size:10px;color:#91a0b6;margin:6px 0 0}
+.calendar-mode-switch{justify-self:end;display:inline-flex;gap:4px;border:1px solid #e4ebf6;background:#f1f5fc;border-radius:14px;padding:5px}
+.calendar-mode-switch button{display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:#7c90ad;padding:10px 17px;border-radius:10px;font-size:12px;font-weight:600;min-width:100px}
+.calendar-mode-switch svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;flex-shrink:0}
+.calendar-mode-switch .is-active{color:#fff;background:linear-gradient(135deg,#5397f6,#2866e9);box-shadow:0 4px 10px #2563eb24}
+.calendar-weekday-labels{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;text-align:center;padding:0 0 12px;color:#92a0b5;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.calendar-day{display:flex;flex-direction:column;text-align:left;min-width:0;border:1px solid #edf1f8;border-radius:13px;padding:12px;background:#f9fbfe;color:#526b8c;min-height:112px;transition:background .15s,border-color .15s}
+.calendar-day:hover{background:#f0f6ff;border-color:#c7dcfc;filter:none}
+.calendar-day-heading{display:flex;justify-content:space-between;align-items:center;gap:3px;width:100%;min-height:24px}
+.calendar-date-number{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;font-size:15px;font-weight:600}
+.calendar-day.is-today .calendar-date-number{color:#fff;background:#347bec;box-shadow:0 3px 8px #2563eb19}
+.today-label{font-size:8px;color:#5589cf;font-weight:600}
+.calendar-day.is-selected{background:#edf4ff;border-color:#81aff4;box-shadow:0 0 0 1px #81aff420}
+.calendar-day.is-selected:not(.is-today) .calendar-date-number{background:#d8e8ff;color:#205fbd}
+.calendar-day.outside-month{background:#fcfdff;color:#b4bfce}
+.calendar-day.outside-month .calendar-previews{opacity:.6}
+.calendar-previews{display:flex;flex-direction:column;gap:5px;width:100%;margin-top:10px}
+.calendar-preview{display:flex;align-items:center;gap:5px;background:#e9f1ff;color:#477ab9;font-size:9px;padding:5px 6px;border-radius:5px;min-width:0;line-height:1.3}
+.calendar-preview>span:first-child{font-size:8px;white-space:nowrap;flex-shrink:0;font-variant-numeric:tabular-nums}
+.calendar-preview>span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.calendar-preview.is-urgent{background:#fff0e3;color:#ae7546}
+.calendar-preview.is-done{opacity:.55;text-decoration:line-through}
+.calendar-more{color:#728aab;font-size:9px;padding-left:5px}
+.week-view .calendar-day{align-items:center;min-height:105px;padding:16px 8px;text-align:center}
+.week-view .calendar-day-heading{justify-content:center;flex-direction:column;gap:4px}
+.week-view .calendar-date-number{font-size:20px;width:36px;height:36px}
+.week-event-count{font-size:10px;margin-top:12px;color:#95a4b9}
+.mobile-event-dots{display:none}
+.calendar-legend{display:flex;align-items:center;gap:20px;margin-top:22px;padding-bottom:22px;border-bottom:1px solid #edf1f8;font-size:10px;color:#98a6ba}
+.calendar-legend>span{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.calendar-legend i{display:block;width:7px;height:7px;border-radius:50%}
+.legend-today{background:#347bec}.legend-selected{background:#d8e8ff;border:1px solid #81aff4}
+.calendar-legend .date-picker{margin:0 0 0 auto;font-size:10px;gap:8px}
+.calendar-legend input{font-size:11px;background:#fff}
+.calendar-redesign .day-events{scroll-margin-top:20px;margin-top:24px}
+.day-events-heading{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px}
+.day-events-heading .eyebrow{font-size:8px;letter-spacing:1.4px}
+.day-events-heading h3{font-size:17px;text-transform:capitalize;margin:7px 0 0}
+.day-total{font-size:10px;color:#8d9fb9;background:#f3f7fd;border-radius:20px;padding:8px 12px;white-space:nowrap}
+.calendar-day.is-today,.calendar-day.is-today:hover{background:linear-gradient(170deg,#5b9bf3 0%,#2868e8 100%);border-color:#5794f0;color:#fff;box-shadow:0 4px 12px #2868e81c}
+.calendar-day.is-today.is-selected{outline:2px solid #194eaa;outline-offset:2px}
+.calendar-day.is-today .calendar-date-number{background:transparent;color:#fff;box-shadow:none}
+.calendar-day.is-today .today-label,.calendar-day.is-today .week-event-count,.calendar-day.is-today .calendar-more{color:#fff}
+.calendar-day.is-today .calendar-previews{opacity:1}
+.calendar-day.is-today .calendar-preview{background:#eff5ff;color:#234d86}
+.calendar-day.is-today .calendar-preview.is-urgent{background:#fff0e3;color:#88522a}
+.calendar-day.is-today .mobile-event-dots i{background:#fff}
+.week-event-count small{display:block;font-size:9px;margin-top:4px}
+.daily-tasks-caption{font-size:11px;color:#7e91ae;margin:24px 0 8px;line-height:1.6}
+.daily-task{--task-color:#78a7f1;border-bottom:1px solid #edf1f8}
+.daily-task.is-urgent{--task-color:#e3a06e}
+.daily-task:last-child{border-bottom:0}
+.daily-task>summary{display:grid;grid-template-columns:172px minmax(0,1fr) 20px;gap:24px;align-items:center;padding:25px 4px;cursor:pointer;list-style:none;border-radius:8px}
+.daily-task>summary::-webkit-details-marker{display:none}
+.daily-task>summary:hover{background:#f8faff}
+.daily-task>summary:focus-visible{outline:2px solid #2868e8;outline-offset:3px}
+.daily-task-track{height:36px;display:flex;align-items:stretch;min-width:0}
+.daily-task-bar{display:block;min-width:3px;max-width:100%;border-radius:7px;background:var(--task-color)}
+.daily-task-label{font-size:14px;line-height:1.6;overflow-wrap:anywhere;color:#1b3054}
+.daily-task-duration{font-weight:600;white-space:nowrap}
+.daily-task-label small{display:block;font-size:10px;color:#778ba6;font-weight:400}
+.daily-task.is-done .daily-task-bar{opacity:.55}
+.daily-task-chevron{color:#7d95b6;font-size:20px;text-align:center;transition:transform .15s}
+.daily-task[open] .daily-task-chevron{transform:rotate(180deg)}
+.daily-task-periods{padding:0 14px 12px 24px;border-left:3px solid var(--task-color);margin:0 4px 18px}
+@media(max-width:640px){.daily-tasks-caption{font-size:10px}.daily-task>summary{grid-template-columns:76px minmax(0,1fr) 14px;gap:12px;padding:20px 2px}.daily-task-track{height:30px}.daily-task-label{font-size:12px}.daily-task-duration{display:block;white-space:normal}.daily-task-periods{padding-left:10px;padding-right:0}.calendar-redesign .day-total{white-space:normal;text-align:right;max-width:40%;line-height:1.5}}
+.activity-toolbar{margin-top:10px;margin-bottom:22px}
+.activity-catalog{gap:16px}
+.activity-catalog .activity-card{border-color:#e9eff7;box-shadow:none;background:linear-gradient(150deg,#fff,#fcfdff);border-radius:17px}
+.activity-catalog .activity-top{margin-bottom:14px}
+.activity-catalog .type-pill{border:0;background:transparent}
+.activity-search{margin:0;font-size:9px;min-width:200px}
+.activity-search input{padding:9px 12px;margin-top:4px;background:#fff;font-size:11px}
+.chart-column .chart-value{font-variant-numeric:tabular-nums;min-height:15px;line-height:15px}
+.bar-space{background:repeating-linear-gradient(to top,transparent 0,transparent calc(25% - 1px),#eef3fa calc(25% - 1px),#eef3fa 25%)}
+.chart-card .bar-chart{padding-top:22px}
+@media(max-width:360px){.calendar-redesign.calendar-card .calendar-toolbar{column-gap:6px}.calendar-redesign .calendar-mode-switch button{padding:9px 7px;gap:3px}.calendar-redesign .calendar-period-controls{gap:4px}.calendar-redesign .calendar-today{padding:9px 8px}}
+@media(max-width:1100px){.calendar-redesign .calendar-toolbar{grid-template-columns:1fr 1fr;gap:18px}.calendar-period-title{grid-row:1;grid-column:1/-1}.calendar-period-controls{grid-row:2}.calendar-mode-switch{grid-row:2}.calendar-preview{flex-direction:column;align-items:flex-start;font-size:8px}.calendar-preview>span:last-child{max-width:100%}.today-label{font-size:7px}.calendar-legend{gap:14px}}
+@media(max-width:640px){.calendar-redesign{padding:20px 12px}.calendar-redesign .calendar-toolbar{grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px}.calendar-period-title h2{font-size:20px}.calendar-period-title p{font-size:9px}.calendar-period-controls{gap:6px}.calendar-today{padding:9px 12px;font-size:11px}.calendar-arrows{gap:2px}.calendar-arrow{width:25px;height:30px;font-size:22px}.calendar-mode-switch{border-radius:12px;padding:3px;gap:2px}.calendar-mode-switch button{min-width:0;gap:5px;padding:9px 10px;font-size:10px;border-radius:9px}.calendar-mode-switch svg{width:14px;height:14px}.calendar-weekday-labels{font-size:8px;letter-spacing:.3px;gap:4px;padding-bottom:10px}.calendar-grid{gap:4px}.calendar-day{padding:6px 2px;min-height:58px;border-radius:9px;align-items:center}.calendar-day-heading{justify-content:center;min-height:23px}.calendar-date-number{font-size:12px;width:24px;height:24px;border-radius:8px}.calendar-day .today-label{display:none}.calendar-previews{display:none}.mobile-event-dots{display:flex;gap:3px;justify-content:center;min-height:6px;margin-top:6px}.mobile-event-dots i{width:4px;height:4px;border-radius:50%;background:#83ace6}.week-view .calendar-day{min-height:69px;padding:9px 2px}.week-view .calendar-date-number{font-size:15px;width:27px;height:27px}.week-event-count{display:none}.calendar-legend{font-size:8px;gap:12px;flex-wrap:wrap;margin-top:17px;padding-bottom:17px}.calendar-legend .date-picker{width:100%;margin:3px 0 0;font-size:10px;justify-content:space-between}.calendar-legend input{padding:7px 10px}.day-events-heading{align-items:flex-start}.day-events-heading h3{font-size:14px;line-height:1.5}.day-events-heading .eyebrow{font-size:7px}.day-total{font-size:8px;padding:7px 9px}.calendar-redesign .event-row{gap:9px}.activity-toolbar{align-items:flex-start}.activity-toolbar>.muted{font-size:10px;line-height:1.6;padding-top:7px}.activity-toolbar .button-row{justify-content:flex-end}.activity-toolbar .secondary{font-size:10px;padding:10px 12px}.activity-search{min-width:0;width:100%}.activity-catalog .activity-card{padding:20px}.activity-toolbar .button-row:has(.activity-search){max-width:62%}.bar-chart.month .chart-value{font-size:8px}}
+
+.routine-launch{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:22px;background:linear-gradient(120deg,#fff,#f4f8ff);padding:24px 28px}
+.availability-copy{padding:17px;background:#f0f6ff;border:1px solid #dce9fc;border-radius:14px;margin-bottom:24px}.availability-copy h3{font-size:15px;margin-bottom:13px}.availability-copy label{margin-bottom:12px}.availability-copy select{background:#fff}.availability-copy p{font-size:10px;color:#879dbd;line-height:1.7;margin:12px 0 0}.availability-copy .secondary{background:#fff;font-size:11px}.availability-rows:empty::before{content:'Sem horários livres neste dia.';display:block;color:#9cabc0;font-size:10px;padding:12px 0}.availability-list .text-button{font-size:10px;margin-top:8px}.availability-slot .availability-remove{color:#b38c8c;background:#fff1f1;border:1px solid #f5dddd;border-radius:8px;width:24px;height:29px;font-size:18px;flex-shrink:0;margin-top:20px}.availability-slot label{min-width:0}.availability-list input[type=time]{width:100%;min-width:0}.free-time-card{background:#f2f8ff;border:1px solid #deebfc;border-radius:14px;padding:17px 18px;margin:20px 0}.free-time-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.free-time-heading h4{margin:0;color:#4774aa;font-size:12px}.free-time-heading>span{color:#7094bf;font-size:10px;white-space:nowrap}.free-time-periods{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}.free-period{padding:9px 12px;background:#fff;border:1px solid #e0ebfa;border-radius:10px;display:flex;align-items:center;gap:12px}.free-period strong{font-size:12px;color:#4774aa;font-weight:600;font-variant-numeric:tabular-nums}.free-period small{font-size:10px;color:#8da4c0}.free-time-card p{color:#94a5bc;font-size:10px;line-height:1.7;margin:12px 0 0}.free-time-card .text-button{font-size:10px;margin-top:7px}
+@media(max-width:640px){.free-time-card{padding:15px 12px}.free-time-heading{align-items:flex-start}.free-time-heading h4{font-size:11px}.free-time-heading>span{font-size:9px}.free-period{padding:8px 10px;gap:9px}.free-period strong{font-size:11px}.availability-copy .button-row{gap:8px}.availability-copy .secondary{font-size:10px;padding:10px 12px}}
+.routine-launch h3{margin:10px 0 6px;font-size:20px}.routine-launch p{color:#8c9cb4;font-size:11px;margin:0}.routine-launch .button-row{gap:8px}.routine-launch button{font-size:11px}
+.availability-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}.availability-list fieldset,.routine-activity,.routine-proposal{border:1px solid #e2eaf7;background:#fbfdff;border-radius:13px;padding:12px;margin:0 0 14px;min-width:0}
+.availability-list legend,.routine-activity legend,.routine-proposal legend{font-size:12px;font-weight:600;color:#5274a4;padding:0 4px;max-width:100%;overflow-wrap:anywhere}.availability-slot{display:flex;gap:6px;align-items:center;margin:8px 0}.availability-slot>span{font-size:9px;color:#98a6ba;margin-top:18px}.availability-slot label{flex:1;font-size:9px;min-width:0;margin:0}.availability-slot input{padding:8px 4px;font-size:11px}
+.routine-activity .form-grid{gap:12px}.routine-activity label{margin-bottom:12px}.routine-keep{display:flex;align-items:center;gap:7px;margin:0;font-size:12px;font-weight:600;color:#5274a4}.routine-keep input{width:16px;height:16px;margin:0;box-shadow:none;accent-color:#2563eb;flex-shrink:0}.routine-proposal .form-grid{gap:10px}.routine-proposal label{margin-bottom:4px}.routine-unmet{padding:16px;border-radius:12px;background:#fff8ed;margin:18px 0;color:#a17c46}.routine-unmet h3{font-size:14px}.routine-unmet p{font-size:11px;margin-bottom:12px}.routine-unmet p:last-child{margin:0}
+@media(max-width:640px){.routine-launch{padding:22px 18px;gap:15px}.routine-launch h3{font-size:18px}.routine-launch .button-row{width:100%;gap:7px}.routine-launch button{font-size:10px;padding:10px 12px}.routine-launch .primary{flex:1}.availability-list{grid-template-columns:1fr}.availability-slot input{padding:9px;font-size:13px}}
+</style>
+  
+  
+</head>
+<body>
+  <div id="app"></div>
+  <dialog id="editor"></dialog>
+  <dialog id="alarm"></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script>(() => {
+'use strict';
+try {
+  let temporary = false;
+  function storageFor(name) {
+    try {
+      const storage = globalThis[name];
+      const probe = 'focus-storage-test-' + Date.now();
+      storage.setItem(probe, '1');
+      storage.removeItem(probe);
+      return storage;
+    } catch {
+      if (name === 'localStorage') temporary = true;
+      const records = new Map();
+      return { getItem: key => records.get(key) || null, setItem: (key, value) => records.set(key, String(value)), removeItem: key => records.delete(key) };
+    }
+  }
+  const localStorage = storageFor('localStorage');
+  const sessionStorage = storageFor('sessionStorage');
+  window.focusStandalone = { temporary };
+  const focusModules = Object.create(null);
+  focusModules.domain = (() => {
+const TYPES = { hobby: 'Hobby', duty: 'Dever' };
+const ALERTS = { none: 'Sem alerta', notification: 'Notificação', alarm: 'Alarme' };
+const COLORS = ['#2563eb', '#0891b2', '#7c3aed', '#059669', '#d97706'];
+const uid = () => crypto.randomUUID();
+const dayKey = (value = Date.now()) => {
+  const date = new Date(value);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+};
+function duration(milliseconds, seconds = false) {
+  const total = Math.max(0, Math.floor(milliseconds / 1000));
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor(total / 60) % 60;
+  return seconds ? `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}` : `${hours}h ${String(minutes).padStart(2, '0')}min`;
+}
+function timerElapsed(timer, now = Date.now()) { return timer ? timer.elapsedMs + (timer.running ? Math.max(0, now - timer.startedAt) : 0) : 0; }
+function startTimer(activityId, now = Date.now()) { return { id: 'timer', kind: 'timer', activityId, sessionId: uid(), originAt: now, startedAt: now, elapsedMs: 0, intervals: [], running: true }; }
+function toggleTimer(timer, now = Date.now()) { return { ...timer, intervals: timer.running ? [...(timer.intervals || []), { start: timer.startedAt, end: Math.max(timer.startedAt, now) }] : timer.intervals || [], elapsedMs: timerElapsed(timer, now), startedAt: now, running: !timer.running }; }
+function finishTimer(timer, activity, now = Date.now()) { return { id: timer.sessionId, kind: 'session', activityId: timer.activityId, activityName: activity?.name || 'Atividade removida', color: activity?.color || COLORS[0], start: timer.originAt, end: now, durationMs: timerElapsed(timer, now), intervals: timer.running ? [...(timer.intervals || []), { start: timer.startedAt, end: now }] : timer.intervals || [], note: '', source: 'timer' }; }
+function validateActivity(input) {
+  const name = String(input.name || '').trim();
+  const weeklyMinutes = Number(input.weeklyMinutes);
+  if (!name || name.length > 80) throw new Error('Informe um nome de até 80 caracteres.');
+  if (!Object.hasOwn(TYPES, input.type)) throw new Error('Escolha hobby ou dever.');
+  if (!Number.isFinite(weeklyMinutes) || weeklyMinutes < 0 || weeklyMinutes > 10080) throw new Error('A meta semanal deve ficar entre 0 e 168 horas.');
+  if (!COLORS.includes(input.color)) throw new Error('Escolha uma das cores disponíveis.');
+  return { name, type: input.type, weeklyMinutes, color: input.color };
+}
+function validateEvent(input) {
+  const title = String(input.title || '').trim();
+  const start = Number(input.start);
+  const end = Number(input.end);
+  if (!title || title.length > 120) throw new Error('Informe um título de até 120 caracteres.');
+  if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start || Math.abs(start) > 8000000000000000 || Math.abs(end) > 8000000000000000) throw new Error('O fim deve ser posterior ao início e as datas devem ser válidas.');
+  if (!Object.hasOwn(ALERTS, input.alert)) throw new Error('Escolha um tipo de alerta.');
+  if (!['low', 'normal', 'high'].includes(input.urgency)) throw new Error('Escolha uma urgência válida.');
+  const leadMinutes = Number(input.leadMinutes);
+  if (!Number.isFinite(leadMinutes) || leadMinutes < 0 || leadMinutes > 10080) throw new Error('Antecedência inválida.');
+  return { title, start, end, alert: input.alert, leadMinutes, urgency: input.urgency, note: String(input.note || '').slice(0, 2000), activityId: input.activityId || '' };
+}
+function weekStart(now = Date.now()) {
+  const date = new Date(now);
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() - (date.getDay() + 6) % 7);
+  return date.getTime();
+}
+function splitSession(session) {
+  const segments = [];
+  const intervals = session.intervals?.length ? session.intervals : [{ start: session.start, end: session.end }];
+  for (const interval of intervals) {
+    let cursor = interval.start;
+    const ratio = session.intervals?.length ? 1 : session.durationMs / Math.max(1, session.end - session.start);
+    while (cursor < interval.end) {
+      const next = new Date(cursor);
+      next.setHours(24, 0, 0, 0);
+      const stop = Math.min(next.getTime(), interval.end);
+      segments.push({ day: dayKey(cursor), start: cursor, end: stop, durationMs: (stop - cursor) * ratio });
+      cursor = stop;
+    }
+  }
+  return segments;
+}
+function statistics(sessions, from, until) {
+  const byActivity = {};
+  const byDay = {};
+  let total = 0;
+  let count = 0;
+  for (const session of sessions) {
+    let contribution = 0;
+    for (const segment of splitSession(session)) {
+      const overlap = Math.max(0, Math.min(segment.end, until) - Math.max(segment.start, from));
+      const amount = segment.durationMs * overlap / Math.max(1, segment.end - segment.start);
+      if (amount) byDay[segment.day] = (byDay[segment.day] || 0) + amount;
+      contribution += amount;
+    }
+    if (contribution) { count++; total += contribution; byActivity[session.activityId] = (byActivity[session.activityId] || 0) + contribution; }
+  }
+  return { total, count, byActivity, byDay };
+}
+function reminderKey(event) { return `${event.id}:${event.start}:${event.leadMinutes}:${event.alert}`; }
+function dueReminders(events, fired, now = Date.now()) { return events.filter(event => !event.done && !event.deleted && event.alert !== 'none' && event.start >= now - 300000 && event.start - event.leadMinutes * 60000 <= now && !fired.includes(reminderKey(event))); }
+function calendarBody(event) { return { summary: event.title, description: event.note || '', start: { dateTime: new Date(event.start).toISOString() }, end: { dateTime: new Date(event.end).toISOString() }, reminders: { useDefault: false, overrides: event.alert === 'none' ? [] : [{ method: 'popup', minutes: Math.round(event.leadMinutes) }] } }; }
+const googleEventId = id => `f${id.replaceAll('-', '').toLowerCase()}`;
+function calendarDays(dateKey, mode = 'month') {
+  const selected = new Date(`${dateKey}T12:00:00`);
+  const start = new Date(selected);
+  if (mode === 'month') start.setDate(1);
+  const offset = (start.getDay() + 6) % 7;
+  const count = mode === 'month' ? Math.ceil((offset + new Date(selected.getFullYear(), selected.getMonth() + 1, 0).getDate()) / 7) * 7 : 7;
+  start.setDate(start.getDate() - offset);
+  return Array.from({ length: count }, (_, index) => { const date = new Date(start); date.setDate(date.getDate() + index); return dayKey(date); });
+}
+function shiftCalendarDate(dateKey, mode, direction) {
+  const date = new Date(`${dateKey}T12:00:00`);
+  if (mode === 'week') date.setDate(date.getDate() + direction * 7);
+  else {
+    const day = date.getDate();
+    date.setDate(1); date.setMonth(date.getMonth() + direction);
+    date.setDate(Math.min(day, new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()));
+  }
+  return dayKey(date);
+}
+function eventsOnDay(events, dateKey) {
+  const start = new Date(`${dateKey}T00:00:00`);
+  const end = new Date(start); end.setDate(end.getDate() + 1);
+  return events.filter(event => !event.deleted && event.start < end.getTime() && event.end > start.getTime()).sort((left, right) => left.start - right.start);
+}
+function dailyTaskTotals(events, activities, dateKey) {
+  const start = new Date(`${dateKey}T00:00:00`);
+  const end = new Date(start); end.setDate(end.getDate() + 1);
+  const groups = new Map();
+  for (const event of eventsOnDay(events, dateKey)) {
+    const activityId = event.activityId || event.routineActivityId;
+    const activity = activities.find(item => !item.deleted && item.id === activityId);
+    const key = activityId ? `activity:${activityId}` : `title:${event.title.normalize('NFKC').trim().replace(/\s+/g, ' ').toLocaleLowerCase('pt-BR')}`;
+    if (!groups.has(key)) groups.set(key, { key, title: activity?.name || event.title, urgent: activity?.type === 'duty', done: true, events: [], durationMs: 0 });
+    const group = groups.get(key);
+    group.events.push(event);
+    group.urgent ||= event.urgency === 'high';
+    group.done &&= Boolean(event.done);
+  }
+  for (const group of groups.values()) {
+    // Count only this day's portion; overlapping periods of one task count once.
+    let cursor = start.getTime();
+    for (const event of group.events) {
+      const from = Math.max(event.start, start.getTime(), cursor);
+      const until = Math.min(event.end, end.getTime());
+      group.durationMs += Math.max(0, until - from);
+      cursor = Math.max(cursor, until);
+    }
+  }
+  return [...groups.values()];
+}
+function taskDuration(milliseconds) {
+  const minutes = Math.max(0, Math.round(milliseconds / 60000));
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return hours ? `${hours} ${hours === 1 ? 'hora' : 'horas'}${rest ? ` e ${rest} min` : ''}` : `${minutes} min`;
+}
+function validateRecord(record) {
+  if (!record || !/^[a-zA-Z0-9-]{1,100}$/.test(record.id) || !['activity', 'event', 'session', 'timer', 'routine'].includes(record.kind)) throw new Error('Registro inválido no backup.');
+  if (record.deleted) return record;
+  if (record.kind === 'activity') validateActivity(record);
+  if (record.kind === 'event') validateEvent(record);
+  if (record.kind === 'routine' && (record.id !== 'routine-settings' || !Array.isArray(record.days) || record.days.length !== 7 || !Number.isInteger(record.breakMinutes) || record.breakMinutes < 0 || record.breakMinutes > 60)) throw new Error('Configuração de rotina inválida.');
+  if (record.kind === 'session' && (!Number.isFinite(record.start) || !Number.isFinite(record.end) || record.end <= record.start || !Number.isFinite(record.durationMs) || record.durationMs <= 0 || record.durationMs > record.end - record.start + 1000)) throw new Error('Sessão inválida no backup.');
+  if (record.kind === 'session' && (record.end - record.start > 366 * 86400000 || Math.abs(record.start) > 8000000000000000 || Math.abs(record.end) > 8000000000000000)) throw new Error('Período da sessão inválido.');
+  if (record.intervals) {
+    if (!Array.isArray(record.intervals) || record.intervals.length > 10000) throw new Error('Intervalos inválidos.');
+    let previous = record.kind === 'timer' ? record.originAt : record.start;
+    let amount = 0;
+    for (const interval of record.intervals) {
+      if (!Number.isFinite(interval.start) || !Number.isFinite(interval.end) || interval.start < previous || interval.end < interval.start || (record.kind === 'session' && interval.end > record.end)) throw new Error('Intervalos fora de ordem.');
+      amount += interval.end - interval.start; previous = interval.end;
+    }
+    if (record.kind === 'session' && Math.abs(amount - record.durationMs) > 1000) throw new Error('A duração não corresponde aos intervalos.');
+  }
+  if (record.kind === 'timer' && (record.id !== 'timer' || !record.sessionId || !Number.isFinite(record.originAt) || !Number.isFinite(record.startedAt) || !Number.isFinite(record.elapsedMs) || record.elapsedMs < 0 || typeof record.running !== 'boolean')) throw new Error('Cronômetro inválido no backup.');
+  return record;
+}
+
+return { TYPES, ALERTS, COLORS, uid, dayKey, duration, timerElapsed, startTimer, toggleTimer, finishTimer, validateActivity, validateEvent, weekStart, splitSession, statistics, reminderKey, dueReminders, calendarBody, googleEventId, calendarDays, shiftCalendarDate, eventsOnDay, dailyTaskTotals, taskDuration, validateRecord };
+})();
+focusModules.store = (() => {
+const { uid, validateRecord } = focusModules.domain;
+class Store {
+  constructor(storage, namespace = 'local') {
+    this.storage = storage;
+    this.namespace = namespace;
+    this.key = `focalizador-v1:${namespace}`;
+    const raw = storage.getItem(this.key);
+    this.state = raw ? JSON.parse(raw) : { version: 1, records: {}, fired: [], conflicts: {} };
+    if (this.state.version !== 1 || !this.state.records) throw new Error('Formato de dados não suportado. Exporte uma cópia antes de continuar.');
+  }
+  transaction(callback) {
+    const next = structuredClone(this.state);
+    callback(next);
+    this.storage.setItem(this.key, JSON.stringify(next));
+    this.state = next;
+  }
+  all(kind) { return Object.values(this.state.records).filter(record => !record.deleted && (!kind || record.kind === kind)); }
+  get(id) { const record = this.state.records[id]; return record?.deleted ? null : record; }
+  put(record) { this.batch([record]); }
+  batch(records) {
+    this.transaction(next => {
+      for (const record of records) {
+        validateRecord(record);
+        next.records[record.id] = { ...next.records[record.id], deleted: false, ...record, changeId: uid(), modifiedAt: Date.now(), _dirty: true };
+      }
+    });
+  }
+  remove(id) { const record = this.get(id); if (record) this.put({ ...record, deleted: true }); }
+  markFired(key) { this.transaction(next => { next.fired = [...next.fired.filter(value => value !== key), key].slice(-1000); }); }
+  export() { return { app: 'Focalizador', version: 1, exportedAt: new Date().toISOString(), records: Object.values(this.state.records).map(cleanRecord) }; }
+  import(data) {
+    if (data?.app !== 'Focalizador' || data.version !== 1 || !Array.isArray(data.records) || data.records.length > 20000) throw new Error('Este arquivo não é um backup válido do Focalizador.');
+    const records = data.records.map(record => cleanRecord(validateRecord(record)));
+    this.batch(records);
+  }
+}
+function cleanRecord(record) { return Object.fromEntries(Object.entries(record).filter(([key]) => !key.startsWith('_'))); }
+
+return { Store, cleanRecord };
+})();
+focusModules.cloud = (() => {
+const { cleanRecord } = focusModules.store;
+const { validateRecord } = focusModules.domain;
+async function jsonFetch(url, options = {}) {
+  const response = await fetch(url, { ...options, signal: AbortSignal.timeout(20000) });
+  const body = response.status === 204 ? {} : await response.json();
+  if (!response.ok) { const error = new Error(body.error?.message || `Falha na conexão (${response.status}).`); error.status = response.status; throw error; }
+  return body;
+}
+class Cloud {
+  constructor(config, sessionStorage) {
+    this.config = config;
+    this.sessionStorage = sessionStorage;
+    this.session = JSON.parse(sessionStorage.getItem('focus-auth') || 'null');
+    if (this.session?.projectId !== config.projectId) this.session = null;
+    this.busy = false;
+  }
+  async auth(action, email, password) {
+    if (!this.config.apiKey || !this.config.projectId) throw new Error('Configure o Firebase antes de entrar na conta.');
+    const body = await jsonFetch(`https://identitytoolkit.googleapis.com/v1/accounts:${action}?key=${encodeURIComponent(this.config.apiKey)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password, returnSecureToken: true }) });
+    this.session = { uid: body.localId, email: body.email, token: body.idToken, refresh: body.refreshToken, expires: Date.now() + Number(body.expiresIn) * 1000, projectId: this.config.projectId };
+    this.persist();
+    return this.session;
+  }
+  persist() { this.sessionStorage.setItem('focus-auth', JSON.stringify(this.session)); }
+  logout() { this.session = null; this.sessionStorage.removeItem('focus-auth'); }
+  async reset(email) {
+    await jsonFetch(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${encodeURIComponent(this.config.apiKey)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ requestType: 'PASSWORD_RESET', email }) });
+  }
+  async token() {
+    if (!this.session) throw new Error('Entre na sua conta.');
+    if (this.session.expires - Date.now() < 60000) {
+      const body = await jsonFetch(`https://securetoken.googleapis.com/v1/token?key=${encodeURIComponent(this.config.apiKey)}`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ grant_type: 'refresh_token', refresh_token: this.session.refresh }).toString() });
+      this.session = { ...this.session, token: body.id_token, refresh: body.refresh_token, expires: Date.now() + Number(body.expires_in) * 1000 };
+      this.persist();
+    }
+    return this.session.token;
+  }
+  async sync(store) {
+    if (this.busy || !this.session) return;
+    this.busy = true;
+    try {
+      const token = await this.token();
+      const base = `https://firestore.googleapis.com/v1/projects/${encodeURIComponent(this.config.projectId)}/databases/(default)/documents/users/${encodeURIComponent(this.session.uid)}/records`;
+      const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+      const remote = new Map();
+      let pageToken = '';
+      do {
+        const page = await jsonFetch(`${base}?pageSize=300${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ''}`, { headers });
+        for (const document of page.documents || []) { const record = validateRecord(JSON.parse(document.fields.data.stringValue)); remote.set(record.id, { ...record, _cloudTime: document.updateTime }); }
+        pageToken = page.nextPageToken || '';
+      } while (pageToken);
+      store.transaction(next => {
+        for (const [id, record] of remote) {
+          const local = next.records[id];
+          if (!local?._dirty || local.changeId === record.changeId) { next.records[id] = { ...record, _dirty: false }; delete next.conflicts[id]; }
+          else if (local._cloudTime !== record._cloudTime) next.conflicts[id] = record;
+          else delete next.conflicts[id];
+        }
+      });
+      for (const record of Object.values(store.state.records)) {
+        if (!record._dirty || store.state.conflicts[record.id]) continue;
+        const precondition = record._cloudTime ? `currentDocument.updateTime=${encodeURIComponent(record._cloudTime)}` : 'currentDocument.exists=false';
+        try {
+          const saved = await jsonFetch(`${base}/${encodeURIComponent(record.id)}?${precondition}`, { method: 'PATCH', headers, body: JSON.stringify({ fields: { data: { stringValue: JSON.stringify(cleanRecord(record)) } } }) });
+          store.transaction(next => {
+            if (next.records[record.id]?.changeId === record.changeId) next.records[record.id] = { ...record, _dirty: false, _cloudTime: saved.updateTime };
+            else if (next.records[record.id]) next.records[record.id]._cloudTime = saved.updateTime;
+          });
+        } catch (error) {
+          if ([400, 409, 412].includes(error.status)) throw new Error('Outra alteração chegou durante a sincronização. Tente sincronizar novamente para resolver o conflito.');
+          throw error;
+        }
+      }
+      return Object.keys(store.state.conflicts).length;
+    } finally { this.busy = false; }
+  }
+}
+
+return { jsonFetch, Cloud };
+})();
+focusModules.platform = (() => {
+const { dueReminders, reminderKey } = focusModules.domain;
+let native;
+async function nativeBridge() {
+  if (!window.Capacitor?.isNativePlatform()) return null;
+  if (!native) { const { registerPlugin } = await import('../vendor/capacitor.js'); native = registerPlugin('FocusNative'); }
+  return native;
+}
+async function requestAlerts() {
+  const bridge = await nativeBridge();
+  if (bridge) return bridge.permissions();
+  if (window.focusDesktop) return { granted: true };
+  if (window.location?.protocol === 'file:') return { granted: true, inPage: true };
+  if (!('Notification' in window)) throw new Error('Este navegador não oferece notificações.');
+  const permission = await Notification.requestPermission();
+  if (permission !== 'granted') throw new Error('Permissão de notificações não concedida.');
+  return { granted: true };
+}
+async function scheduleAlerts(events, namespace, fired = []) {
+  const upcoming = events.filter(event => !event.done && !event.deleted && event.alert !== 'none' && !fired.includes(reminderKey(event))).map(event => ({ id: event.id, title: event.title, at: event.start - event.leadMinutes * 60000, mode: event.alert, key: reminderKey(event) })).filter(event => event.at > Date.now());
+  const bridge = await nativeBridge();
+  if (bridge) return bridge.schedule({ events: upcoming, namespace });
+  if (window.focusDesktop) return window.focusDesktop.schedule(upcoming, namespace);
+}
+function checkBrowserAlerts(events, store, onAlarm) {
+  if (window.focusDesktop || window.Capacitor?.isNativePlatform()) return;
+  for (const event of dueReminders(events, store.state.fired)) {
+    store.markFired(reminderKey(event));
+    if (event.alert === 'alarm') onAlarm(event);
+    else if ('Notification' in window && Notification.permission === 'granted') new Notification(event.title, { body: 'Seu compromisso está chegando.', tag: event.id });
+    else onAlarm({ ...event, alert: 'notification' });
+  }
+}
+let audioContext;
+let soundInterval;
+async function unlockAudio() { audioContext ||= new AudioContext(); await audioContext.resume(); }
+async function alarmSound() {
+  await unlockAudio(); stopSound();
+  const beep = () => { const oscillator = audioContext.createOscillator(); const gain = audioContext.createGain(); oscillator.frequency.value = 740; gain.gain.setValueAtTime(0.13, audioContext.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5); oscillator.connect(gain).connect(audioContext.destination); oscillator.start(); oscillator.stop(audioContext.currentTime + 0.5); };
+  beep(); soundInterval = setInterval(beep, 1300);
+}
+function stopSound() { clearInterval(soundInterval); }
+async function calendarToken(config) {
+  const bridge = await nativeBridge();
+  if (bridge) return (await bridge.authorizeCalendar()).accessToken;
+  if (window.focusDesktop) return (await window.focusDesktop.authorizeCalendar(config.googleClientId, config.googleClientSecret)).accessToken;
+  throw new Error('A conexão direta ao Google Agenda funciona nos aplicativos Android e Windows. Nesta versão de navegador, exporte o compromisso em .ics.');
+}
+
+return { nativeBridge, requestAlerts, scheduleAlerts, checkBrowserAlerts, unlockAudio, alarmSound, stopSound, calendarToken };
+})();
+focusModules.routine = (() => {
+const { dayKey, calendarDays, statistics } = focusModules.domain;
+const WEEKDAYS = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+function validateRoutine(settings) {
+  const breakMinutes = Number(settings.breakMinutes ?? 10);
+  if (!Number.isInteger(breakMinutes) || breakMinutes < 0 || breakMinutes > 60) throw new Error('O intervalo deve ficar entre 0 e 60 minutos.');
+  if (!Array.isArray(settings.days) || settings.days.length !== 7) throw new Error('Configure os sete dias da semana.');
+  const days = settings.days.map(slots => {
+    if (!Array.isArray(slots) || slots.length > 1440) throw new Error('As faixas do dia são inválidas.');
+    const result = slots.map(slot => {
+      if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(slot.start) || !/^([01]\d|2[0-3]):[0-5]\d$/.test(slot.end) || slot.end <= slot.start) throw new Error('Cada faixa deve começar antes de terminar, no mesmo dia.');
+      return { start: slot.start, end: slot.end };
+    }).sort((left, right) => left.start.localeCompare(right.start));
+    if (result.some((slot, index) => index > 0 && slot.start < result[index - 1].end)) throw new Error('As faixas do mesmo dia não podem se sobrepor.');
+    return result;
+  });
+  return { days, breakMinutes };
+}
+function availabilityFields(data, day) {
+  const indexes = [...new Set(Object.keys(data).flatMap(key => {
+    const match = key.match(/^(?:from|to)-(\d+)-(\d+)$/);
+    return match && Number(match[1]) === day ? [Number(match[2])] : [];
+  }))].sort((left, right) => left - right);
+  return indexes.flatMap(index => {
+    const start = data[`from-${day}-${index}`] || '';
+    const end = data[`to-${day}-${index}`] || '';
+    if (!start && !end) return [];
+    if (!start || !end) throw new Error('Preencha início e fim de cada faixa, ou deixe ambos vazios.');
+    return [{ start, end }];
+  });
+}
+function copyAvailability(days, sourceDay, group) {
+  const indexes = group === 'weekdays' ? [0, 1, 2, 3, 4] : group === 'weekend' ? [5, 6] : null;
+  if (!indexes || !Number.isInteger(sourceDay) || sourceDay < 0 || sourceDay > 6) throw new Error('Escolha um dia de origem e um grupo válido.');
+  return days.map((slots, index) => structuredClone(indexes.includes(index) ? days[sourceDay] : slots));
+}
+function freeTimeOnDay(settings, events, dateKey) {
+  const config = validateRoutine(settings);
+  const day = (new Date(`${dateKey}T12:00`).getDay() + 6) % 7;
+  let free = config.days[day].map(slot => ({ day: dateKey, start: new Date(`${dateKey}T${slot.start}`).getTime(), end: new Date(`${dateKey}T${slot.end}`).getTime() }));
+  for (const event of events.filter(event => !event.deleted)) free = subtract(free, event, config.breakMinutes * 60000);
+  return free;
+}
+function planningFields(activity) {
+  const priority = activity.priority || 'normal';
+  const frequency = Number(activity.frequency ?? 3);
+  const minMinutes = 15;
+  const sessionMinutes = 50;
+  const deadline = activity.deadline || '';
+  if (!['high', 'normal', 'low'].includes(priority) || !Number.isInteger(frequency) || frequency < 1 || frequency > 7) throw new Error('Confira prioridade e frequência (1–7 dias).');
+  if (deadline && (!/^\d{4}-\d{2}-\d{2}$/.test(deadline) || dayKey(new Date(`${deadline}T12:00`)) !== deadline)) throw new Error('Prazo inválido.');
+  return { priority, frequency, minMinutes, sessionMinutes, deadline };
+}
+function subtract(blocks, occupied, gap) {
+  return blocks.flatMap(block => {
+    const start = occupied.start - gap;
+    const end = occupied.end + gap;
+    if (end <= block.start || start >= block.end) return [block];
+    return [{ ...block, end: Math.min(start, block.end) }, { ...block, start: Math.max(end, block.start) }].filter(part => part.end > part.start);
+  });
+}
+function generateRoutine({ activities, events, sessions, settings, week, now = Date.now() }) {
+  const config = validateRoutine(settings);
+  const dates = calendarDays(week, 'week');
+  const weekStart = new Date(`${dates[0]}T00:00`).getTime();
+  const weekEnd = new Date(`${dates[6]}T00:00`); weekEnd.setDate(weekEnd.getDate() + 1);
+  const spent = statistics(sessions, weekStart, Math.min(now, weekEnd.getTime())).byActivity;
+  let free = dates.flatMap((date, index) => config.days[index].map(slot => ({ day: date, start: Math.max(new Date(`${date}T${slot.start}`).getTime(), Math.ceil(now / 300000) * 300000), end: new Date(`${date}T${slot.end}`).getTime() })).filter(block => block.end > block.start));
+  const gap = config.breakMinutes * 60000;
+  for (const event of events.filter(event => !event.deleted)) free = subtract(free, event, gap);
+  const availableMinutes = free.reduce((sum, block) => sum + (block.end - block.start) / 60000, 0);
+  const rank = { high: 0, normal: 1, low: 2 };
+  const jobs = activities.map(activity => {
+    const fields = planningFields(activity);
+    const booked = events.filter(event => !event.deleted && !event.done && event.routineActivityId === activity.id).reduce((sum, event) => sum + Math.max(0, Math.min(event.end, weekEnd.getTime()) - Math.max(event.start, weekStart)) / 60000, 0);
+    return { ...activity, ...fields, remaining: Math.max(0, activity.weeklyMinutes - (spent[activity.id] || 0) / 60000 - booked), allocated: {}, proposedMinutes: 0 };
+  }).sort((left, right) => (left.type === 'duty' ? 0 : 1) - (right.type === 'duty' ? 0 : 1) || (left.type === 'duty' ? (left.deadline || '9999').localeCompare(right.deadline || '9999') : 0) || rank[left.priority] - rank[right.priority] || left.name.localeCompare(right.name));
+  const proposals = [];
+  for (const job of jobs) {
+    const deadline = job.type === 'duty' && job.deadline ? new Date(`${job.deadline}T23:59:59.999`).getTime() : Infinity;
+    let iterations = 0;
+    while (job.remaining >= job.minMinutes && iterations++ < 2500) {
+      const neededDays = Math.max(1, job.frequency - Object.keys(job.allocated).length);
+      const dailyTarget = Math.min(job.remaining, Math.max(job.minMinutes, Math.ceil(job.remaining / neededDays / 5) * 5));
+      const candidates = free.map(block => ({ ...block, capacity: Math.floor((Math.min(block.end, deadline) - block.start) / 60000) })).filter(block => block.capacity >= job.minMinutes).sort((left, right) => (job.allocated[left.day] || 0) - (job.allocated[right.day] || 0) || left.start - right.start);
+      const block = candidates[0]; if (!block) break;
+      let dailyRemaining = dailyTarget;
+      while (dailyRemaining >= job.minMinutes) {
+        const next = free.filter(part => part.day === block.day).map(part => ({ ...part, capacity: Math.floor((Math.min(part.end, deadline) - part.start) / 60000) })).filter(part => part.capacity >= job.minMinutes).sort((left, right) => left.start - right.start)[0];
+        if (!next) break;
+        let minutes = Math.min(job.sessionMinutes, dailyRemaining, next.capacity);
+        const remainder = dailyRemaining - minutes;
+        if (remainder > 0 && remainder < job.minMinutes && minutes - (job.minMinutes - remainder) >= job.minMinutes) minutes -= job.minMinutes - remainder;
+        const item = { activityId: job.id, title: job.name, start: next.start, end: next.start + minutes * 60000, type: job.type, priority: job.priority, deadline: job.deadline, minMinutes: job.minMinutes };
+        proposals.push(item); free = subtract(free, item, gap);
+        job.remaining -= minutes; job.proposedMinutes += minutes; dailyRemaining -= minutes;
+        job.allocated[block.day] = (job.allocated[block.day] || 0) + minutes;
+      }
+    }
+  }
+  return { proposals: proposals.sort((left, right) => left.start - right.start), availableMinutes, dates, unmet: jobs.filter(job => job.remaining > 0 || !job.weeklyMinutes).map(job => ({ id: job.id, name: job.name, minutes: job.remaining, reason: !job.weeklyMinutes ? 'Defina uma meta semanal para receber sugestões.' : job.deadline && new Date(`${job.deadline}T23:59:59`).getTime() < now ? 'O prazo já passou.' : 'Faltou espaço livre antes do prazo ou um bloco com a duração mínima. Deveres receberam preferência.' })) };
+}
+function validateProposals(proposals, { activities, events, settings, now = Date.now() }) {
+  const config = validateRoutine(settings);
+  for (const item of proposals) {
+    const activity = activities.find(value => value.id === item.activityId);
+    if (!activity) throw new Error('Uma atividade foi removida. Gere a rotina novamente.');
+    const fields = planningFields(activity);
+    const minutes = (item.end - item.start) / 60000;
+    if (!Number.isFinite(item.start) || !Number.isFinite(item.end) || item.start < now || minutes < fields.minMinutes || minutes > fields.sessionMinutes) throw new Error('Confira os horários e a duração das sessões da prévia.');
+    if (activity.type === 'duty' && fields.deadline && item.end > new Date(`${fields.deadline}T23:59:59.999`).getTime()) throw new Error('A sessão precisa terminar antes do prazo do dever.');
+    const date = new Date(item.start); const day = (date.getDay() + 6) % 7;
+    if (!config.days[day].some(slot => item.start >= new Date(`${dayKey(date)}T${slot.start}`).getTime() && item.end <= new Date(`${dayKey(date)}T${slot.end}`).getTime())) throw new Error('Uma sessão está fora da sua disponibilidade.');
+    const others = [...events.filter(event => !event.deleted), ...proposals.filter(other => other !== item)];
+    if (others.some(other => item.start < other.end + config.breakMinutes * 60000 && item.end > other.start - config.breakMinutes * 60000)) throw new Error('Há horários sobrepostos ou sem o intervalo configurado. Ajuste a prévia ou gere novamente.');
+  }
+  return proposals;
+}
+
+return { WEEKDAYS, validateRoutine, availabilityFields, copyAvailability, freeTimeOnDay, planningFields, generateRoutine, validateProposals };
+})();
+focusModules.project = (() => {
+const DEFAULT_CONNECTION = {
+  projectId: 'focalizador-3d5d3',
+  apiKey: 'AIzaSyBidrd1plVFWL0OOYQMUtzlouZ833gkvUg'
+};
+
+return { DEFAULT_CONNECTION };
+})();
+focusModules.app = (() => {
+const { TYPES, ALERTS, COLORS, uid, dayKey, duration, timerElapsed, startTimer, toggleTimer, finishTimer, validateActivity, validateEvent, weekStart, statistics, calendarBody, googleEventId, calendarDays, shiftCalendarDate, dailyTaskTotals, taskDuration } = focusModules.domain;
+const { Store } = focusModules.store;
+const { Cloud, jsonFetch } = focusModules.cloud;
+const { requestAlerts, scheduleAlerts, checkBrowserAlerts, unlockAudio, alarmSound, stopSound, calendarToken, nativeBridge } = focusModules.platform;
+const { WEEKDAYS, validateRoutine, planningFields, generateRoutine, validateProposals, availabilityFields, copyAvailability, freeTimeOnDay } = focusModules.routine;
+const { DEFAULT_CONNECTION } = focusModules.project;
+const root = document.querySelector('#app');
+const editor = document.querySelector('#editor');
+const alarm = document.querySelector('#alarm');
+const escape = value => String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+const icons = { home: '⌂', activities: '◈', agenda: '▦', stats: '▥', settings: '⚙', play: '▶', pause: 'Ⅱ', check: '✓', arrow: '↗' };
+let config = JSON.parse(localStorage.getItem('focus-config') || '{}');
+if (!config.projectId && !config.apiKey) config = { ...config, ...DEFAULT_CONNECTION };
+let cloud = new Cloud(config, sessionStorage);
+let store = new Store(localStorage, cloud.session ? `${config.projectId}-${cloud.session.uid}` : 'local');
+let view = 'home';
+let activityQuery = '';
+let agendaDate = dayKey();
+let agendaMode = localStorage.getItem('focus-agenda-mode') === 'week' ? 'week' : 'month';
+let statsPeriod = 7;
+let syncStatus = cloud.session ? 'Aguardando sincronização' : window.focusStandalone?.temporary ? 'Teste temporário · exporte um backup' : 'Salvo neste dispositivo';
+let googleToken = null;
+let googleEvents = [];
+let pendingSync;
+let operationBusy = false;
+const timeText = value => new Date(value).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+const dateText = value => new Date(value).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+const selected = (left, right) => left === right ? ' selected' : '';
+const button = (action, text, style = '', extra = '') => `<button type="button" class="${style}" data-action="${action}" ${extra}>${text}</button>`;
+function toast(message) {
+  if (editor.open) editor.querySelector('.dialog-status').textContent = message;
+  const target = document.querySelector('#toast'); target.textContent = message; target.classList.add('visible'); clearTimeout(toast.timeout); toast.timeout = setTimeout(() => target.classList.remove('visible'), 5500);
+}
+function readableError(error) {
+  const code = error.message || String(error);
+  if (/quota/i.test(code)) return 'O armazenamento deste dispositivo ficou cheio. Exporte um backup e libere espaço antes de continuar.';
+  const known = { INVALID_LOGIN_CREDENTIALS: 'E-mail ou senha incorretos.', EMAIL_EXISTS: 'Este e-mail já possui uma conta.', WEAK_PASSWORD: 'Use uma senha de pelo menos 6 caracteres.', PERMISSION_DENIED: 'Acesso ao banco negado. Confira as regras do Firestore.', OPERATION_NOT_ALLOWED: 'Ative o login por e-mail e senha no Firebase.', TOO_MANY_ATTEMPTS_TRY_LATER: 'Muitas tentativas. Aguarde antes de tentar novamente.' };
+  return Object.entries(known).find(([key]) => code.includes(key))?.[1] || (code.includes('fetch') ? 'Sem conexão. Seus dados continuam salvos neste dispositivo.' : code);
+}
+async function changed(message) {
+  render();
+  try { await scheduleAlerts(store.all('event'), store.namespace, store.state.fired); } catch (error) { toast(`Dados salvos. Alertas: ${readableError(error)}`); }
+  clearTimeout(pendingSync); if (cloud.session) pendingSync = setTimeout(() => sync(false), 700);
+  if (message) toast(message);
+}
+async function sync(manual = true) {
+  if (!cloud.session || cloud.busy) { if (manual && !cloud.session) toast('Entre na conta em Ajustes para sincronizar.'); return; }
+  syncStatus = 'Sincronizando…'; updateSyncLabel();
+  try {
+    const conflicts = await cloud.sync(store);
+    syncStatus = conflicts ? `${conflicts} conflito(s) em Ajustes` : `Sincronizado às ${timeText(Date.now())}`;
+    await scheduleAlerts(store.all('event'), store.namespace, store.state.fired);
+    if (!editor.open) render();
+    if (manual) toast(conflicts ? 'Revise as alterações em conflito nos Ajustes.' : 'Seus dados estão sincronizados.');
+  } catch (error) { syncStatus = `Pendente: ${readableError(error)}`; if (manual) toast(readableError(error)); }
+  updateSyncLabel();
+}
+function updateSyncLabel() { for (const label of document.querySelectorAll('[data-sync-label]')) label.textContent = syncStatus; }
+function nav() {
+  return [['home', 'Hoje'], ['activities', 'Atividades'], ['agenda', 'Agenda'], ['stats', 'Progresso'], ['settings', 'Ajustes']].map(([key, title]) => `<button type="button" data-action="navigate" data-view="${key}" aria-label="${title}" title="${title}" class="nav-item ${view === key ? 'active' : ''}" ${view === key ? 'aria-current="page"' : ''}><span aria-hidden="true">${icons[key]}</span><span>${title}</span></button>`).join('');
+}
+function render() {
+  const titles = { home: 'Seu tempo, com intenção.', activities: 'Espaço para o que importa.', agenda: 'Um dia de cada vez.', stats: 'Cada minuto conta.', settings: 'Do seu jeito.' };
+  root.innerHTML = `<aside class="sidebar"><a class="brand" href="#" data-action="navigate" data-view="home"><span class="brand-icon">✳</span><span>Focalizador<small>FOCO E DISCIPLINA</small></span></a><nav aria-label="Principal">${nav()}</nav><div class="sidebar-note"><span class="mini-star">✧</span><strong>Pequenos passos.<br>Grandes mudanças.</strong><p>Reserve tempo para a pessoa que você quer ser.</p></div><button class="profile" data-action="navigate" data-view="settings"><span class="avatar">${escape((cloud.session?.email || 'Você').slice(0, 1).toUpperCase())}</span><span><strong>${cloud.session ? 'Minha conta' : 'Seu espaço pessoal'}</strong><small>${cloud.session ? 'Sincronização ativada' : 'Modo local'}</small></span><span>›</span></button></aside><main><header class="topbar"><div class="mobile-brand">✳ Focalizador</div><span class="eyebrow">${new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}</span><button class="sync-state" data-action="sync"><span class="status-dot ${cloud.session ? 'online' : ''}"></span><span data-sync-label>${escape(syncStatus)}</span></button></header><section class="page-heading"><div><p class="eyebrow">${view === 'home' ? 'BOM TER VOCÊ POR AQUI' : 'SEU ESPAÇO DE FOCO'}</p><h1>${titles[view]}</h1><p>${{ home: 'Menos pressa. Mais presença no que faz sentido para você.', activities: 'Organize seus hobbies e deveres, sem perder a leveza.', agenda: 'Dê lugar aos seus compromissos e ao seu tempo livre.', stats: 'Veja o caminho que você está construindo.', settings: 'Conta, lembretes e cuidado com seus dados.' }[view]}</p></div>${['home', 'activities'].includes(view) ? button('activity-new', '+ Nova atividade', 'primary') : view === 'agenda' ? button('event-new', '+ Compromisso', 'primary') : ''}</section>${view === 'home' ? homeView() : view === 'activities' ? activitiesView() : view === 'agenda' ? agendaView() : view === 'stats' ? statsView() : settingsView()}<footer class="page-footer"><span>Feito para focar no que importa.</span><span>Focalizador · v0.1</span></footer></main><nav class="bottom-nav" aria-label="Navegação móvel">${nav()}</nav>`;
+  tick();
+}
+function weekStats() { return statistics(store.all('session'), weekStart(), Date.now() + 1); }
+function homeView() {
+  const stats = weekStats();
+  const timer = store.get('timer');
+  const activity = timer ? store.get(timer.activityId) : null;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const todayStats = statistics(store.all('session'), today.getTime(), Date.now() + 1);
+  const upcoming = store.all('event').filter(event => !event.done && event.end >= Date.now()).sort((left, right) => left.start - right.start).slice(0, 3);
+  const active = store.all('activity').slice(0, 3);
+  return `<div class="dashboard-grid"><section class="focus-card"><div class="focus-top"><span class="pill">✦ MOMENTO DE FOCO</span><span class="orbital">✧</span></div><p class="focus-caption">${timer ? 'Agora, sua atenção está em' : 'Uma coisa de cada vez'}</p><h2>${timer ? escape(activity?.name || 'Atividade removida') : 'O próximo passo começa aqui.'}</h2><div class="timer" data-timer>${duration(timerElapsed(timer), true)}</div><p class="timer-status" data-timer-status>${timer ? timer.running ? 'Seu tempo está sendo registrado.' : 'Pausa também faz parte.' : 'Escolha uma atividade e dê espaço para ela.'}</p><div class="focus-actions">${timer ? `${button('timer-toggle', timer.running ? 'Ⅱ Pausar' : '▶ Continuar', 'white')}${button('timer-finish', '✓ Concluir sessão', 'glass')}` : button('pick-activity', '▶ Começar a focar', 'white')}</div><div class="focus-decoration" aria-hidden="true"></div></section><section class="card week-summary"><div class="section-label"><span>SUA SEMANA</span><span class="subtle-icon">↗</span></div><h2>${duration(stats.total)}</h2><p>investidos no que importa</p>${sparkline(stats.byDay)}<div class="summary-foot"><span><strong>${stats.count}</strong> sessões de foco</span><span><strong>${Object.keys(stats.byDay).length}</strong> dias ativos</span></div></section></div><div class="metric-strip"><div><span class="metric-icon">◷</span><span><small>Foco hoje</small><strong>${duration(todayStats.total)}</strong></span></div><div><span class="metric-icon purple">◈</span><span><small>Suas atividades</small><strong>${store.all('activity').length} <em>para cultivar</em></strong></span></div><div><span class="metric-icon cyan">▦</span><span><small>Próximos compromissos</small><strong>${store.all('event').filter(event => !event.done && event.start >= Date.now()).length} <em>no seu ritmo</em></strong></span></div></div><div class="section-title"><h2>Suas atividades <span>Um pouco de dedicação, todos os dias.</span></h2>${button('navigate', 'Ver todas ↗', 'text-button', 'data-view="activities"')}</div>${active.length ? `<div class="activity-grid">${active.map(activityCard).join('')}</div>` : empty('Seu primeiro passo', 'Adicione um hobby ou dever para começar a registrar seu tempo.', `${button('activity-new', '+ Criar atividade', 'primary')}${button('starter', 'Usar atividades iniciais', 'secondary')}`)}<div class="section-title"><h2>No horizonte <span>Abra espaço para o que vem aí.</span></h2>${button('navigate', 'Abrir agenda ↗', 'text-button', 'data-view="agenda"')}</div><section class="card upcoming">${upcoming.length ? upcoming.map(eventRow).join('') : '<p class="muted">Sua agenda está livre. Que tal reservar um momento para você?</p>'}</section>`;
+}
+function empty(title, description, actions = '') { return `<section class="empty card"><div class="empty-symbol">✧</div><h3>${title}</h3><p>${description}</p><div class="button-row">${actions}</div></section>`; }
+function sparkline(byDay) {
+  const days = [];
+  const first = new Date(weekStart());
+  for (let index = 0; index < 7; index++) { const date = new Date(first); date.setDate(date.getDate() + index); days.push({ key: dayKey(date), label: ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'][index] }); }
+  const max = Math.max(3600000, ...Object.values(byDay));
+  return `<div class="mini-chart" role="img" aria-label="Tempo por dia nesta semana">${days.map(day => `<div class="mini-column"><span class="mini-value">${byDay[day.key] ? duration(byDay[day.key]) : ''}</span><div style="height:${Math.max(5, (byDay[day.key] || 0) / max * 76)}px" class="mini-bar ${day.key === dayKey() ? 'today' : ''}"></div><small>${day.label}</small></div>`).join('')}</div>`;
+}
+function activityCard(activity) {
+  const amount = weekStats().byActivity[activity.id] || 0;
+  const percent = activity.weeklyMinutes ? Math.min(100, amount / (activity.weeklyMinutes * 60000) * 100) : 0;
+  const timer = store.get('timer');
+  return `<article class="card activity-card"><div class="activity-top"><span class="activity-symbol" style="--accent:${escape(activity.color)}">${activity.type === 'hobby' ? '✧' : '▤'}</span><span class="type-pill">${TYPES[activity.type]}</span>${button('activity-edit', '•••', 'icon-button', `data-id="${activity.id}" aria-label="Editar ${escape(activity.name)}"`)}</div><h3>${escape(activity.name)}</h3><p class="muted">${duration(amount)} nesta semana</p><div class="progress-track"><div style="width:${percent}%;background:${escape(activity.color)}"></div></div><div class="activity-bottom"><small>${activity.weeklyMinutes ? `Meta: ${duration(activity.weeklyMinutes * 60000)}/sem` : 'No seu próprio ritmo'}</small>${button('timer-start', timer?.activityId === activity.id ? 'Em foco' : '▶ Focar', 'soft-button', `data-id="${activity.id}" ${timer ? 'disabled' : ''}`)}</div></article>`;
+}
+function activitiesView() {
+  const all = store.all('activity');
+  const activities = all.filter(activity => activity.name.toLocaleLowerCase('pt-BR').includes(activityQuery.toLocaleLowerCase('pt-BR')));
+  return `<div class="section-title activity-toolbar"><span class="muted">${all.length} ${all.length === 1 ? 'atividade para cultivar' : 'atividades para cultivar'}</span><div class="button-row">${all.length > 8 || activityQuery ? `<label class="activity-search">Buscar atividade<input id="activity-search" type="search" value="${escape(activityQuery)}" placeholder="Nome da atividade" /></label>` : ''}${button('session-new', '+ Registro manual', 'secondary')}</div></div>${activities.length ? `<div class="activity-grid activity-catalog">${activities.map(activityCard).join('')}</div>` : empty(activityQuery ? 'Nenhuma atividade encontrada' : 'Cultive algo que importa', activityQuery ? 'Experimente outro nome na busca.' : 'Você pode criar hobbies e deveres com metas semanais opcionais.', activityQuery ? '' : button('activity-new', '+ Nova atividade', 'primary'))}${store.get('timer') ? `<div class="inline-note">◷ Uma sessão está ${store.get('timer').running ? 'em andamento' : 'pausada'}. ${button('navigate', 'Voltar ao cronômetro', 'text-button', 'data-view="home"')}</div>` : ''}`;
+}
+function eventRow(event) {
+  return `<article class="event-row ${event.done ? 'completed' : ''}"><div class="event-time"><strong>${timeText(event.start)} – ${timeText(event.end)}</strong><small>${dateText(event.start)}${dayKey(event.start) !== dayKey(event.end) ? ` – ${dateText(event.end)}` : ''}</small></div><span class="event-line ${event.urgency === 'high' ? 'urgent' : ''}"></span><div class="event-detail"><strong>${escape(event.title)}</strong><small>${ALERTS[event.alert]}${event.leadMinutes && event.alert !== 'none' ? ` · ${event.leadMinutes} min antes` : ''}${event.done ? ' · Concluído' : ''}</small></div>${button('event-edit', '↗', 'icon-button', `data-id="${event.id}" aria-label="Editar ${escape(event.title)}"`)}</article>`;
+}
+function dailyTasksView(tasks) {
+  const max = Math.max(1, ...tasks.map(task => task.durationMs));
+  return `<p class="daily-tasks-caption">Tempo planejado por tarefa. Abra uma tarefa para consultar ou editar seus horários.</p><div class="daily-tasks">${tasks.map(task => `<details class="daily-task ${task.urgent ? 'is-urgent' : ''} ${task.done ? 'is-done' : ''}"><summary><span class="daily-task-track" aria-hidden="true"><span class="daily-task-bar" style="width:${task.durationMs / max * 100}%"></span></span><span class="daily-task-label"><strong>${escape(task.title)}</strong><span class="daily-task-duration"> · ${taskDuration(task.durationMs)}</span>${task.done ? '<small>Concluída</small>' : ''}</span><span class="daily-task-chevron" aria-hidden="true">⌄</span></summary><div class="daily-task-periods">${task.events.map(eventRow).join('')}</div></details>`).join('')}</div>`;
+}
+function agendaView() {
+  const allEvents = store.all('event');
+  const activities = store.all('activity');
+  const tasks = dailyTaskTotals(allEvents, activities, agendaDate);
+  const total = tasks.reduce((sum, task) => sum + task.durationMs, 0);
+  const days = calendarDays(agendaDate, agendaMode);
+  const anchor = new Date(`${agendaDate}T12:00:00`);
+  const period = agendaMode === 'month' ? 'mês' : 'semana';
+  const modeIcon = mode => `<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="3" y="4" width="14" height="13" rx="3"/><path d="M3 8h14M7 2v4M13 2v4${mode === 'week' ? 'M7 8v9M12 8v9' : 'M7 11h1M12 11h1M7 14h1M12 14h1'}"/></svg>`;
+  const cells = days.map(key => {
+    const date = new Date(`${key}T12:00:00`);
+    const items = dailyTaskTotals(allEvents, activities, key);
+    const planned = items.reduce((sum, item) => sum + item.durationMs, 0);
+    const isToday = key === dayKey();
+    const outside = date.getMonth() !== anchor.getMonth();
+    const preview = items.slice(0, 2).map(task => `<span class="calendar-preview ${task.done ? 'is-done' : ''} ${task.urgent ? 'is-urgent' : ''}"><span>${duration(task.durationMs)}</span><span>${escape(task.title)}</span></span>`).join('');
+    return `<button type="button" data-action="date-select" data-date="${key}" class="calendar-day ${key === agendaDate ? 'is-selected' : ''} ${isToday ? 'is-today' : ''} ${outside ? 'outside-month' : ''}" aria-pressed="${key === agendaDate}" ${isToday ? 'aria-current="date"' : ''} aria-label="${escape(date.toLocaleDateString('pt-BR', { dateStyle: 'full' }))}, ${items.length} tarefa(s), tempo planejado: ${taskDuration(planned)}"><span class="calendar-day-heading"><span class="calendar-date-number">${date.getDate()}</span>${isToday ? '<span class="today-label">Hoje</span>' : ''}</span>${agendaMode === 'month' ? `<span class="calendar-previews">${preview}${items.length > 2 ? `<span class="calendar-more">+${items.length - 2} tarefa${items.length === 3 ? '' : 's'}</span>` : ''}</span>` : `<span class="week-event-count">${items.length ? `${duration(planned)}<small>planejados</small>` : 'Sem tarefas'}</span>`}<span class="mobile-event-dots" aria-hidden="true">${items.slice(0, 3).map(() => '<i></i>').join('')}</span></button>`;
+  }).join('');
+  return `<section class="card routine-launch"><div><span class="eyebrow">ROTINA SEMANAL</span><h3>Uma semana que cabe na sua vida.</h3><p>Deveres primeiro. Hobbies nos espaços disponíveis. Você revisa antes de confirmar.</p></div><div class="button-row">${button('routine-hours', 'Horários livres', 'secondary')}${button('routine-goals', 'Prioridades e metas', 'secondary')}${button('routine-generate', '✧ Sugerir rotina', 'primary')}</div></section><section class="card calendar-card calendar-redesign">
+    <div class="calendar-toolbar"><div class="calendar-period-controls">${button('date-today', 'Hoje', 'calendar-today')}<div class="calendar-arrows">${button('date-prev', '‹', 'calendar-arrow', `aria-label="${agendaMode === 'month' ? 'Mês anterior' : 'Semana anterior'}"`)}${button('date-next', '›', 'calendar-arrow', `aria-label="${agendaMode === 'month' ? 'Próximo mês' : 'Próxima semana'}"`)}</div></div><div class="calendar-period-title"><h2>${anchor.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}</h2><p>${agendaMode === 'week' ? `${dateText(new Date(`${days[0]}T12:00`))} – ${dateText(new Date(`${days[6]}T12:00`))}` : 'Planeje o mês. Cuide de um dia por vez.'}</p></div><div class="calendar-mode-switch" role="group" aria-label="Visualização da agenda">${[['week', 'Semana'], ['month', 'Mês']].map(([mode, label]) => button('calendar-mode', `${modeIcon(mode)}<span>${label}</span>`, agendaMode === mode ? 'is-active' : '', `data-mode="${mode}" aria-pressed="${agendaMode === mode}"`)).join('')}</div></div>
+    <div class="calendar-weekday-labels">${['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'].map(label => `<span>${label}</span>`).join('')}</div><div class="calendar-grid ${agendaMode}-view" aria-label="Calendário por ${period}">${cells}</div>
+    <div class="calendar-legend"><span><i class="legend-today"></i>Hoje</span><span><i class="legend-selected"></i>Dia selecionado</span><label class="date-picker">Ir para a data<input type="date" id="agenda-date" value="${agendaDate}" /></label></div>
+    <section class="day-events" id="agenda-details" aria-label="Tarefas do dia selecionado"><div class="day-events-heading"><div><span class="eyebrow">DIA SELECIONADO</span><h3>${anchor.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}</h3></div><span class="day-total">Tempo planejado: ${duration(total)}</span></div>${freeTimeView(allEvents)}${tasks.length ? dailyTasksView(tasks) : '<div class="empty-inline">✧<h3>Espaço para um bom dia.</h3><p>Nenhuma tarefa nesta data. Use + Compromisso para reservar um horário.</p></div>'}</section>
+    </section><section class="card integration-card"><div><span class="eyebrow">GOOGLE AGENDA</span><h3>Seu planejamento, conectado.</h3><p>Envie compromissos e consulte os próximos eventos. A importação é somente para consulta.</p></div><div class="button-row">${button('google-connect', googleToken ? 'Reconectar Google' : 'Conectar Google', 'secondary')}${googleToken ? button('google-list', 'Atualizar eventos', 'primary') : ''}</div>${googleEvents.length ? `<div class="google-events">${googleEvents.map(event => `<div><strong>${escape(event.summary || 'Sem título')}</strong><small>${escape(event.start?.dateTime ? new Date(event.start.dateTime).toLocaleString('pt-BR') : event.start?.date || '')}</small></div>`).join('')}</div>` : ''}</section>`;
+}
+function routineConfig() { return store.get('routine-settings') || { days: WEEKDAYS.map(() => []), breakMinutes: 10 }; }
+function freeTimeView(events) {
+  const settings = routineConfig();
+  const periods = freeTimeOnDay(settings, events, agendaDate);
+  const day = (new Date(`${agendaDate}T12:00`).getDay() + 6) % 7;
+  const total = periods.reduce((sum, period) => sum + period.end - period.start, 0);
+  return `<section class="free-time-card" aria-label="Horários livres do dia"><div class="free-time-heading"><h4>Horários livres do dia</h4>${periods.length ? `<span>${duration(total)} disponíveis</span>` : ''}</div>${periods.length ? `<div class="free-time-periods">${periods.map(period => `<span class="free-period"><strong>${timeText(period.start)} – ${timeText(period.end)}</strong><small>${duration(period.end - period.start)}</small></span>`).join('')}</div><p>Dentro da sua disponibilidade, sem compromissos, deveres ou hobbies agendados.${settings.breakMinutes ? ` Reservados ${settings.breakMinutes} min de intervalo ao redor de cada compromisso.` : ''}</p>` : `<p>${settings.days[day].length ? 'Não há faixas livres restantes neste dia, considerando compromissos e intervalos.' : 'Nenhuma disponibilidade cadastrada para este dia.'}</p>${button('routine-hours', 'Ajustar horários livres', 'text-button')}`}</section>`;
+}
+function availabilityRow(day, index, slot = {}) {
+  return `<div class="availability-slot" data-slot="${index}"><label>Início<input type="time" name="from-${day}-${index}" value="${escape(slot.start || '')}" /></label><span>até</span><label>Fim<input type="time" name="to-${day}-${index}" value="${escape(slot.end || '')}" /></label>${button('availability-remove', '×', 'availability-remove', `data-day="${day}" aria-label="Remover faixa de ${WEEKDAYS[day]}"`)}</div>`;
+}
+function routineHours() {
+  const config = routineConfig();
+  dialog('Seus horários livres, toda semana', `<p class="muted">Cada dia pode ter uma, três ou mais faixas. Adicione ou remova conforme precisar; dias sem faixas ficam indisponíveis.</p><section class="availability-copy"><h3>Repetir horários</h3><label>Copiar as faixas do dia<select id="availability-source">${WEEKDAYS.map((day, index) => `<option value="${index}">${day}</option>`).join('')}</select></label><div class="button-row">${button('availability-copy', 'Segunda a sexta', 'secondary', 'data-group="weekdays"')}${button('availability-copy', 'Finais de semana', 'secondary', 'data-group="weekend"')}</div><p>Substitui as faixas do grupo pelas do dia escolhido. Você pode ajustar cada dia depois. Só será salvo ao confirmar abaixo.</p></section><div class="availability-list">${WEEKDAYS.map((day, index) => `<fieldset data-availability-day="${index}"><legend>${day}</legend><div class="availability-rows">${(config.days[index].length ? config.days[index] : [{}]).map((slot, row) => availabilityRow(index, row, slot)).join('')}</div>${button('availability-add', '+ Adicionar faixa', 'text-button', `data-day="${index}"`)}</fieldset>`).join('')}</div><label>Intervalo entre sessões (minutos)<input name="breakMinutes" type="number" min="0" max="60" required value="${config.breakMinutes}" /></label>`, 'Salvar horários', async data => {
+    const days = WEEKDAYS.map((_day, index) => availabilityFields(data, index));
+    store.put({ id: 'routine-settings', kind: 'routine', ...validateRoutine({ days, breakMinutes: Number(data.breakMinutes) }) }); await changed('Disponibilidade semanal salva.');
+  });
+}
+function copyHours(group) {
+  const form = editor.querySelector('form');
+  const data = Object.fromEntries(new FormData(form));
+  const source = Number(editor.querySelector('#availability-source').value);
+  const sourceDays = WEEKDAYS.map((_day, index) => index === source ? availabilityFields(data, index) : []);
+  const validated = validateRoutine({ days: sourceDays, breakMinutes: 0 });
+  const copied = copyAvailability(validated.days, source, group);
+  if (!confirm(`Substituir os horários de ${group === 'weekdays' ? 'segunda a sexta' : 'sábado e domingo'} pelas faixas de ${WEEKDAYS[source]}? As alterações só serão salvas ao clicar em Salvar horários.`)) return;
+  const indexes = group === 'weekdays' ? [0, 1, 2, 3, 4] : [5, 6];
+  for (const index of indexes) editor.querySelector(`[data-availability-day="${index}"] .availability-rows`).innerHTML = copied[index].map((slot, row) => availabilityRow(index, row, slot)).join('');
+  toast('Faixas copiadas. Confira e use Salvar horários para confirmar.');
+}
+function routineGoals() {
+  const activities = store.all('activity');
+  if (!activities.length) { toast('Crie ao menos uma atividade primeiro.'); return; }
+  dialog('Prioridades e metas da rotina', `<p class="muted">Deveres recebem preferência automática. Entre deveres, o prazo mais próximo vem primeiro; depois vale a prioridade escolhida. A frequência orienta a distribuição, sem garantir espaço quando a semana estiver cheia.</p>${activities.map((activity, index) => { const fields = planningFields(activity); return `<fieldset class="routine-activity"><legend>${escape(activity.name)} · ${TYPES[activity.type]}</legend><div class="form-grid"><label>Prioridade<select name="priority-${index}">${[['high', 'Alta'], ['normal', 'Média'], ['low', 'Baixa']].map(([key, label]) => `<option value="${key}"${selected(fields.priority, key)}>${label}</option>`).join('')}</select></label><label>Meta semanal (horas)<input type="number" step="0.25" min="0" max="168" name="goal-${index}" value="${activity.weeklyMinutes / 60}" required /></label></div><div class="form-grid"><label>Dias desejados por semana<input type="number" min="1" max="7" name="frequency-${index}" value="${fields.frequency}" required /></label>${activity.type === 'duty' ? `<label>Prazo opcional<input type="date" name="deadline-${index}" value="${fields.deadline}" /></label>` : ''}</div></fieldset>`; }).join('')}<p class="fine-print">Os períodos sugeridos duram de 15 a 50 minutos, com preferência por manter a mesma tarefa em sequência. Meta 0 exclui a atividade das sugestões. A rotina nunca altera compromissos existentes nem marca atividades como realizadas.</p>`, 'Salvar prioridades', async data => {
+    const records = activities.map((activity, index) => {
+      const current = store.get(activity.id); if (!current) throw new Error('Uma atividade foi removida. Abra esta configuração novamente.');
+      const weeklyMinutes = Number(data[`goal-${index}`]) * 60;
+      return { ...current, ...validateActivity({ ...current, weeklyMinutes }), ...planningFields({ priority: data[`priority-${index}`], frequency: data[`frequency-${index}`], deadline: data[`deadline-${index}`] || '' }) };
+    });
+    store.batch(records); await changed('Preferências de planejamento salvas.');
+  });
+}
+function routinePreview() {
+  const settings = routineConfig();
+  if (!settings.days.some(day => day.length)) { routineHours(); toast('Cadastre seus horários e depois use Sugerir rotina.'); return; }
+  const activities = store.all('activity');
+  if (!activities.length) { toast('Crie suas atividades e metas semanais primeiro.'); return; }
+  const result = generateRoutine({ activities, events: store.all('event'), sessions: store.all('session'), settings, week: agendaDate });
+  const namespace = store.namespace;
+  const fingerprint = JSON.stringify([settings, activities]);
+  dialog('Sua semana, antes de confirmar', `<p class="muted">Semana de ${dateText(new Date(`${result.dates[0]}T12:00`))} a ${dateText(new Date(`${result.dates[6]}T12:00`))}. ${result.proposals.length} sessões sugeridas, com deveres primeiro. Desmarque o que não quiser ou ajuste os horários abaixo.</p>${result.proposals.map((item, index) => `<fieldset class="routine-proposal"><legend><label class="routine-keep"><input type="checkbox" name="keep-${index}" checked />${escape(item.title)} · ${TYPES[item.type]}</label></legend><div class="form-grid"><label>Início<input type="datetime-local" name="start-${index}" value="${localDateTime(item.start)}" required /></label><label>Fim<input type="datetime-local" name="end-${index}" value="${localDateTime(item.end)}" required /></label></div></fieldset>`).join('') || '<p class="inline-note">Nenhuma sessão coube nesta semana. Confira horários, metas e prazos, ou selecione uma semana futura no calendário.</p>'}${result.unmet.length ? `<section class="routine-unmet"><h3>O que ficou de fora</h3>${result.unmet.map(item => `<p><strong>${escape(item.name)}</strong>${item.minutes ? `: faltaram ${Math.ceil(item.minutes)} min` : ''}<br>${escape(item.reason)}</p>`).join('')}</section>` : ''}<label>Alertas para as novas sessões<select name="alert">${Object.entries(ALERTS).map(([key, value]) => `<option value="${key}"${selected(key, 'none')}>${value}</option>`).join('')}</select></label><p class="fine-print">As sessões serão compromissos normais, que você poderá editar ou remover na Agenda. A rotina só conta como tempo praticado após registrar uma sessão. A disponibilidade habitual permanece intacta.</p>`, 'Confirmar na agenda', async data => {
+    if (store.namespace !== namespace || JSON.stringify([routineConfig(), store.all('activity')]) !== fingerprint) throw new Error('As preferências ou atividades mudaram. Feche esta prévia e gere novamente.');
+    const accepted = result.proposals.filter((_item, index) => data[`keep-${index}`]).map(item => {
+      const index = result.proposals.indexOf(item);
+      return { ...item, start: new Date(data[`start-${index}`]).getTime(), end: new Date(data[`end-${index}`]).getTime() };
+    });
+    if (!accepted.length) throw new Error('Selecione ao menos uma sessão ou feche a prévia para ajustar as preferências.');
+    if (accepted.some(item => !result.dates.includes(dayKey(item.start)) || !result.dates.includes(dayKey(item.end - 1)))) throw new Error('Mantenha as sessões dentro da semana planejada.');
+    validateProposals(accepted, { activities: store.all('activity'), events: store.all('event'), settings: routineConfig() });
+    if (data.alert !== 'none') { await unlockAudio().catch(() => {}); await requestAlerts(); }
+    store.batch(accepted.map(item => ({ id: uid(), kind: 'event', ...validateEvent({ title: item.title, start: item.start, end: item.end, alert: data.alert, urgency: item.type === 'duty' ? 'high' : 'normal', leadMinutes: 0, activityId: item.activityId, note: 'Sessão sugerida pelo planejador semanal.' }), routineActivityId: item.activityId })));
+    await changed(`${accepted.length} sessões adicionadas à agenda.`);
+  });
+}
+function statsView() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const from = new Date(today); from.setDate(from.getDate() - statsPeriod + 1);
+  const stats = statistics(store.all('session'), from.getTime(), Date.now() + 1);
+  const days = Array.from({ length: statsPeriod }, (_, index) => { const date = new Date(from); date.setDate(date.getDate() + index); return date; });
+  const max = Math.max(3600000, ...Object.values(stats.byDay));
+  const sessions = store.all('session').filter(session => session.end > from.getTime()).sort((left, right) => right.start - left.start).slice(0, 50);
+  return `<div class="section-title"><h2>Tempo bem investido</h2><div class="segmented">${[7, 30].map(days => button('stats-period', `${days} dias`, statsPeriod === days ? 'chosen' : '', `data-period="${days}"`)).join('')}</div></div><div class="stats-counters"><section class="card"><span>Tempo registrado</span><h2>${duration(stats.total)}</h2></section><section class="card"><span>Sessões</span><h2>${stats.count}</h2></section><section class="card"><span>Dias ativos</span><h2>${Object.keys(stats.byDay).length}<small> / ${statsPeriod}</small></h2></section></div><section class="card chart-card"><h3>Seu ritmo, dia após dia</h3><p class="muted">Tempo concluído ou registrado manualmente. Sessões em andamento não entram no total.</p><div class="bar-chart ${statsPeriod === 30 ? 'month' : ''}" role="img" aria-label="Tempo diário em minutos">${days.map(date => { const amount = stats.byDay[dayKey(date)] || 0; return `<div class="chart-column" title="${dayKey(date)}: ${duration(amount)}"><span class="chart-value">${Math.round(amount / 60000)}<small>min</small></span><div class="bar-space"><div class="chart-bar" style="height:${Math.max(2, amount / max * 100)}%"></div></div><small>${statsPeriod === 7 ? date.toLocaleDateString('pt-BR', { weekday: 'short' }) : date.getDate()}</small></div>`; }).join('')}</div></section><section class="card"><h3>Por atividade</h3>${Object.entries(stats.byActivity).length ? Object.entries(stats.byActivity).sort((left, right) => right[1] - left[1]).map(([id, amount]) => { const activity = store.get(id) || store.all('session').find(session => session.activityId === id); return `<div class="distribution"><div><strong>${escape(activity?.name || activity?.activityName || 'Atividade removida')}</strong><span>${duration(amount)} · ${Math.round(amount / stats.total * 100)}%</span></div><div class="progress-track"><div style="width:${amount / stats.total * 100}%"></div></div></div>`; }).join('') : '<p class="muted">Suas estatísticas aparecem depois da primeira sessão.</p>'}</section><div class="section-title"><h2>Histórico recente</h2>${button('session-new', '+ Registro manual', 'secondary')}</div><section class="card history">${sessions.length ? sessions.map(session => `<article><span class="history-icon">✓</span><div><strong>${escape(session.activityName)}</strong><small>${new Date(session.start).toLocaleString('pt-BR')} · ${session.source === 'manual' ? 'Manual' : 'Cronômetro'}${session.note ? ` · ${escape(session.note)}` : ''}</small></div><b>${duration(session.durationMs)}</b>${button('session-delete', '×', 'icon-button', `data-id="${session.id}" aria-label="Remover registro"`)}</article>`).join('') : '<p class="muted">Você ainda não concluiu nenhuma sessão neste período.</p>'}</section>`;
+}
+function settingsView() {
+  const conflicts = Object.entries(store.state.conflicts);
+  return `<div class="settings-grid"><section class="card"><span class="eyebrow">SUA CONTA</span><h2>${cloud.session ? 'Tudo no mesmo lugar.' : 'Comece aqui. Continue em qualquer lugar.'}</h2><p class="muted">${cloud.session ? escape(cloud.session.email) : 'O modo local funciona sem conta. Para compartilhar seus dados entre Android e Windows, configure a nuvem e entre com o mesmo e-mail.'}</p><p class="status-text" data-sync-label>${escape(syncStatus)}</p><div class="button-row">${cloud.session ? `${button('sync', 'Sincronizar agora', 'primary')}${button('logout', 'Sair da conta', 'secondary')}` : `${button('login', 'Entrar', 'primary')}${button('signup', 'Criar conta', 'secondary')}`}</div><p class="fine-print">Os dados locais e os de cada conta ficam separados. Exporte e importe um backup para transferi-los. Por segurança, a sessão da conta dura até fechar o aplicativo.</p></section><section class="card"><span class="eyebrow">LEMBRETES</span><h2>Na medida certa.</h2><p class="muted">Cada compromisso permite escolher alarme, notificação ou nenhum alerta. Você também define a antecedência.</p>${button('enable-alerts', 'Ativar notificações e som', 'secondary')}<p class="fine-print">${window.focusDesktop ? 'No Windows, feche a janela para manter o aplicativo na bandeja. Ao escolher Sair, os alertas param até abrir novamente.' : window.Capacitor?.isNativePlatform() ? 'No Android, permita notificações e alarmes exatos. Após reiniciar, os alertas são reagendados pelo aplicativo.' : 'No navegador, mantenha esta página aberta. Para alertas com a página fechada, use o aplicativo Android ou Windows. O som depende da interação com a página.'}</p></section><section class="card"><span class="eyebrow">SEUS DADOS</span><h2>Seu progresso é seu.</h2><p class="muted">Guarde uma cópia e restaure quando precisar. A importação combina registros pelo identificador e substitui os correspondentes.</p><div class="button-row">${button('backup-export', '↓ Exportar backup', 'secondary')}${button('backup-import', '↑ Importar backup', 'secondary')}</div><input type="file" id="backup-file" accept="application/json,.json" hidden /><p class="fine-print">O backup contém atividades, sessões e compromissos. Não inclui senhas, tokens ou configurações de conexão.</p></section><section class="card"><span class="eyebrow">CONEXÕES</span><h2>Prepare a sincronização.</h2><p class="muted">Configure uma vez em cada dispositivo, conforme o guia que acompanha o programa.</p>${button('configuration', 'Configurar conexões', 'secondary')}<p class="fine-print">Firebase: ${config.projectId ? escape(config.projectId) : 'não configurado'}<br>Google Agenda: ${config.googleClientId ? 'cliente Windows configurado' : 'configuração necessária no Google Cloud'}</p></section></div>${conflicts.length ? `<section class="card conflict-card"><h2>Alterações em conflito</h2><p>O mesmo registro mudou em dois dispositivos. Exporte um backup antes de escolher qual versão manter.</p>${conflicts.map(([id, remote]) => `<article><h3>${escape(store.state.records[id]?.name || store.state.records[id]?.title || remote.kind)}</h3><div class="conflict-comparison"><div><strong>Neste dispositivo</strong><pre>${escape(JSON.stringify(store.state.records[id], null, 2))}</pre></div><div><strong>Na nuvem</strong><pre>${escape(JSON.stringify(remote, null, 2))}</pre></div></div><div class="button-row">${button('conflict-local', 'Manter deste dispositivo', 'secondary', `data-id="${id}"`)}${button('conflict-remote', 'Usar versão da nuvem', 'secondary', `data-id="${id}"`)}</div></article>`).join('')}</section>` : ''}`;
+}
+function dialog(title, content, submitLabel, onSubmit, extra = '') {
+  editor.innerHTML = `<form><div class="dialog-heading"><div><p class="eyebrow">FOCALIZADOR</p><h2>${title}</h2></div><button type="button" data-action="close-dialog" class="icon-button" aria-label="Fechar">×</button></div>${content}<p class="dialog-status" role="status" aria-live="polite"></p><p class="form-error" role="alert"></p><div class="dialog-actions">${extra}<button type="submit" class="primary">${submitLabel}</button></div></form>`;
+  editor.showModal();
+  const form = editor.querySelector('form');
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    const submit = form.querySelector('[type="submit"]'); submit.disabled = true;
+    try { await onSubmit(Object.fromEntries(new FormData(form))); if (editor.open) editor.close(); }
+    catch (error) { form.querySelector('.form-error').textContent = readableError(error); }
+    finally { submit.disabled = false; }
+  });
+}
+function activityEditor(activity) {
+  dialog(activity ? 'Seu espaço de dedicação' : 'Uma nova atividade', `<label>Nome<input name="name" required maxlength="80" placeholder="Ex.: Xadrez, leitura, estudos" value="${escape(activity?.name || '')}" /></label><div class="form-grid"><label>Tipo<select name="type">${Object.entries(TYPES).map(([key, value]) => `<option value="${key}"${selected(activity?.type, key)}>${value}</option>`).join('')}</select></label><label>Meta semanal (horas)<input name="weeklyHours" type="number" min="0" max="168" step="0.25" value="${(activity?.weeklyMinutes || 0) / 60}" /></label></div><p class="fine-print">Uma meta é um convite à consistência. Deixe 0 para acompanhar sem meta.</p><fieldset class="color-picker"><legend>Cor da atividade</legend>${COLORS.map((color, index) => `<label style="--swatch:${color}"><input type="radio" name="color" value="${color}" ${color === (activity?.color || COLORS[0]) ? 'checked' : ''} aria-label="Cor ${index + 1}" /><span></span></label>`).join('')}</fieldset>`, 'Salvar atividade', data => { store.put({ ...activity, id: activity?.id || uid(), kind: 'activity', ...validateActivity({ ...data, weeklyMinutes: Number(data.weeklyHours) * 60 }) }); changed('Atividade salva.'); }, activity ? button('activity-delete', 'Remover atividade', 'danger text-button', `data-id="${activity.id}"`) : '');
+}
+const localDateTime = value => { const date = new Date(value); return `${dayKey(date)}T${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`; };
+function eventEditor(event) {
+  const beginning = event?.start || (agendaDate === dayKey() ? Math.ceil((Date.now() + 3600000) / 900000) * 900000 : new Date(`${agendaDate}T09:00`).getTime());
+  dialog(event ? 'Seu compromisso' : 'Abra espaço na agenda', `<label>Título<input name="title" required maxlength="120" value="${escape(event?.title || '')}" placeholder="Ex.: Treino de xadrez" /></label><div class="form-grid"><label>Início<input type="datetime-local" name="start" required value="${localDateTime(beginning)}" /></label><label>Fim<input type="datetime-local" name="end" required value="${localDateTime(event?.end || beginning + 3600000)}" /></label></div><label>Atividade relacionada<select name="activityId"><option value="">Nenhuma</option>${store.all('activity').map(activity => `<option value="${activity.id}"${selected(event?.activityId, activity.id)}>${escape(activity.name)}</option>`).join('')}</select></label><div class="form-grid"><label>Como lembrar<select name="alert">${Object.entries(ALERTS).map(([key, label]) => `<option value="${key}"${selected(event?.alert || 'notification', key)}>${label}</option>`).join('')}</select></label><label>Antecedência (minutos)<input type="number" name="leadMinutes" min="0" max="10080" value="${event?.leadMinutes ?? 10}" required /></label></div><label>Urgência<select name="urgency">${[['low', 'Baixa'], ['normal', 'Normal'], ['high', 'Alta']].map(([key, label]) => `<option value="${key}"${selected(event?.urgency || 'normal', key)}>${label}</option>`).join('')}</select></label><label>Anotações<textarea name="note" maxlength="2000" rows="2">${escape(event?.note || '')}</textarea></label><p class="fine-print">A urgência é uma marcação visual. O tipo de alerta escolhido determina se haverá som. O Google Agenda usa os próprios lembretes.</p>${event ? `<div class="event-tools">${button('event-done', event.done ? 'Reabrir compromisso' : '✓ Marcar concluído', 'secondary', `data-id="${event.id}"`)}${button('event-google', event.googleId ? 'Atualizar no Google' : 'Enviar ao Google', 'secondary', `data-id="${event.id}"`)}${button('event-ics', '↓ Calendário (.ics)', 'secondary', `data-id="${event.id}"`)}</div>` : ''}`, 'Salvar compromisso', async data => {
+    const validated = validateEvent({ ...data, start: new Date(data.start).getTime(), end: new Date(data.end).getTime() });
+    if (validated.alert !== 'none' && (!event || event.alert === 'none')) { await unlockAudio().catch(() => {}); await requestAlerts(); }
+    store.put({ ...event, id: event?.id || uid(), kind: 'event', ...validated }); await changed('Compromisso salvo.');
+  }, event ? button('event-delete', 'Remover', 'danger text-button', `data-id="${event.id}"`) : '');
+}
+function manualSession() {
+  if (!store.all('activity').length) { toast('Crie uma atividade antes de registrar tempo.'); return; }
+  dialog('Seu tempo também pode ser registrado depois', `<label>Atividade<select name="activityId">${store.all('activity').map(activity => `<option value="${activity.id}">${escape(activity.name)}</option>`).join('')}</select></label><label>Quando começou<input type="datetime-local" name="start" required value="${localDateTime(Date.now() - 1800000)}" /></label><label>Duração (minutos)<input type="number" name="minutes" min="1" max="1440" required value="30" /></label><label>Anotações<textarea name="note" maxlength="1000" rows="2"></textarea></label>`, 'Registrar tempo', data => {
+    const start = new Date(data.start).getTime(); const minutes = Number(data.minutes); const end = start + minutes * 60000;
+    if (!Number.isFinite(start) || !Number.isFinite(minutes) || minutes <= 0 || minutes > 1440 || end > Date.now() + 60000) throw new Error('Registre até 24 horas e escolha um período já concluído.');
+    if (store.all('session').some(session => start < session.end && end > session.start)) throw new Error('Este horário coincide com outra sessão. Ajuste para evitar contar tempo duas vezes.');
+    const timer = store.get('timer'); if (timer && end > timer.originAt) throw new Error('Conclua a sessão atual antes de registrar esse horário.');
+    const activity = store.get(data.activityId);
+    store.put({ id: uid(), kind: 'session', activityId: activity.id, activityName: activity.name, color: activity.color, start, end, durationMs: minutes * 60000, source: 'manual', note: data.note }); changed('Tempo registrado.');
+  });
+}
+function configure() {
+  dialog('Conectar seus dispositivos', `<p class="muted">Use os dados do seu próprio projeto, seguindo o README. A chave Web do Firebase identifica o projeto; não use uma chave de serviço.</p><label>Firebase · Project ID<input name="projectId" value="${escape(config.projectId || '')}" pattern="[a-z0-9-]+" /></label><label>Firebase · Web API Key<input name="apiKey" value="${escape(config.apiKey || '')}" /></label><label>Google · Client ID de aplicativo desktop<input name="googleClientId" value="${escape(config.googleClientId || '')}" /></label><label>Google · Client secret do cliente desktop<input name="googleClientSecret" value="${escape(config.googleClientSecret || '')}" /></label><p class="fine-print">Esses identificadores de aplicativo desktop ficam neste dispositivo. No Android, a autorização Google usa o pacote e a assinatura do APK registrados no Google Cloud.</p>`, 'Salvar conexões', data => {
+    if (cloud.session) throw new Error('Saia da conta antes de alterar a configuração.');
+    config = Object.fromEntries(Object.entries(data).map(([key, value]) => [key, value.trim()])); localStorage.setItem('focus-config', JSON.stringify(config)); cloud = new Cloud(config, sessionStorage); googleToken = null; render(); toast('Configuração salva. Agora você pode entrar na conta.');
+  });
+}
+function login(create = false) {
+  if (!config.apiKey || !config.projectId) { configure(); return; }
+  dialog(create ? 'Seu espaço, em todos os dispositivos' : 'Bom ter você de volta', `<label>E-mail<input type="email" name="email" required autocomplete="email" /></label><label>Senha<input type="password" name="password" required minlength="6" autocomplete="${create ? 'new-password' : 'current-password'}" /></label><p class="fine-print">Os dados do modo local continuam guardados separadamente. Use backup para levá-los à conta.</p>`, create ? 'Criar minha conta' : 'Entrar', async data => {
+    await cloud.auth(create ? 'signUp' : 'signInWithPassword', data.email, data.password);
+    clearTimeout(pendingSync); store = new Store(localStorage, `${config.projectId}-${cloud.session.uid}`); googleEvents = []; syncStatus = 'Conta conectada'; await changed(); await sync(false);
+  }, create ? '' : button('reset-password', 'Esqueci a senha', 'text-button'));
+}
+async function saveFile(name, text, type) {
+  const bridge = await nativeBridge();
+  if (bridge) return bridge.saveText({ name, text, mime: type });
+  if (window.focusDesktop) return window.focusDesktop.saveText(name, text);
+  const url = URL.createObjectURL(new Blob([text], { type })); const link = document.createElement('a'); link.href = url; link.download = name; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function icsText(event) {
+  const timestamp = value => new Date(value).toISOString().replaceAll('-', '').replaceAll(':', '').replace(/\.\d{3}/, '');
+  const quote = value => String(value || '').replaceAll('\\', '\\\\').replaceAll('\r', '').replaceAll('\n', '\\n').replaceAll(',', '\\,').replaceAll(';', '\\;');
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Focalizador//PT-BR', 'BEGIN:VEVENT', `UID:${event.id}@focalizador.local`, `DTSTAMP:${timestamp(Date.now())}`, `DTSTART:${timestamp(event.start)}`, `DTEND:${timestamp(event.end)}`, `SUMMARY:${quote(event.title)}`, `DESCRIPTION:${quote(event.note)}`];
+  if (event.alert !== 'none') lines.push('BEGIN:VALARM', `TRIGGER:-PT${event.leadMinutes}M`, 'ACTION:DISPLAY', `DESCRIPTION:${quote(event.title)}`, 'END:VALARM');
+  lines.push('END:VEVENT', 'END:VCALENDAR'); return lines.join('\r\n');
+}
+async function googleRequest(path, options = {}) {
+  googleToken ||= await calendarToken(config);
+  try { return await jsonFetch(`https://www.googleapis.com/calendar/v3/${path}`, { ...options, headers: { Authorization: `Bearer ${googleToken}`, 'Content-Type': 'application/json' } }); }
+  catch (error) { if (error.status === 401) googleToken = null; throw error; }
+}
+async function pushGoogle(event) {
+  const id = event.googleId || googleEventId(event.id);
+  try { await googleRequest(`calendars/primary/events/${id}`, { method: 'PUT', body: JSON.stringify(calendarBody(event)) }); }
+  catch (error) {
+    if (error.status !== 404) throw error;
+    try { await googleRequest('calendars/primary/events', { method: 'POST', body: JSON.stringify({ id, ...calendarBody(event) }) }); }
+    catch (retryError) { if (retryError.status !== 409) throw retryError; await googleRequest(`calendars/primary/events/${id}`, { method: 'PUT', body: JSON.stringify(calendarBody(event)) }); }
+  }
+  store.put({ ...event, googleId: id, googleSentAt: Date.now() }); await changed('Compromisso salvo no Google Agenda.');
+}
+function showAlarm(event) {
+  const isAlarm = event.alert === 'alarm' || event.mode === 'alarm';
+  alarm.innerHTML = `<div class="alarm-content"><div class="empty-symbol">${isAlarm ? '◷' : '♧'}</div><p class="eyebrow">${isAlarm ? 'SEU ALARME' : 'LEMBRETE'}</p><h2>${escape(event.title)}</h2><p>Um momento reservado por você.</p><button class="primary" data-action="alarm-stop">Entendi${isAlarm ? ' · Parar alarme' : ''}</button></div>`;
+  if (!alarm.open) alarm.showModal();
+  if (isAlarm) alarmSound().catch(() => toast('Toque em Ativar notificações e som nos Ajustes para liberar o áudio.'));
+}
+function confirmAction(title, description, perform) { dialog(title, `<p class="muted">${description}</p>`, 'Confirmar', async () => { await perform(); }); }
+async function action(name, target) {
+  const id = target.dataset.id;
+  if (name === 'navigate') { view = target.dataset.view; render(); window.scrollTo(0, 0); }
+  else if (name === 'routine-hours') routineHours();
+  else if (name === 'availability-add') {
+    const day = Number(target.dataset.day);
+    const rows = editor.querySelector(`[data-availability-day="${day}"] .availability-rows`);
+    const index = Math.max(-1, ...Array.from(rows.querySelectorAll('[data-slot]'), row => Number(row.dataset.slot))) + 1;
+    rows.insertAdjacentHTML('beforeend', availabilityRow(day, index));
+  }
+  else if (name === 'availability-remove') target.closest('.availability-slot').remove();
+  else if (name === 'availability-copy') copyHours(target.dataset.group);
+  else if (name === 'routine-goals') routineGoals();
+  else if (name === 'routine-generate') routinePreview();
+  else if (name === 'activity-new') activityEditor();
+  else if (name === 'activity-edit') activityEditor(store.get(id));
+  else if (name === 'activity-delete') {
+    if (store.get('timer')?.activityId === id) throw new Error('Conclua a sessão desta atividade antes de removê-la.');
+    editor.close(); confirmAction('Remover atividade?', 'O histórico das sessões será preservado.', () => { store.remove(id); changed('Atividade removida.'); });
+  } else if (name === 'starter') { store.batch([['Xadrez', 'hobby', 180], ['Leitura', 'hobby', 120], ['Estudos', 'duty', 300]].map(([name, type, weeklyMinutes], index) => ({ id: uid(), kind: 'activity', name, type, weeklyMinutes, color: COLORS[index] }))); await changed('Atividades iniciais criadas. Você pode editar todas.'); }
+  else if (name === 'calendar-mode') { if (!['week', 'month'].includes(target.dataset.mode)) return; agendaMode = target.dataset.mode; localStorage.setItem('focus-agenda-mode', agendaMode); render(); }
+  else if (name === 'pick-activity') {
+    if (!store.all('activity').length) { activityEditor(); return; }
+    dialog('A que você quer dedicar atenção?', `<label>Atividade<select name="activityId">${store.all('activity').map(activity => `<option value="${activity.id}">${escape(activity.name)}</option>`).join('')}</select></label>`, '▶ Começar', async data => { if (store.get('timer')) throw new Error('Já existe uma sessão aberta.'); await unlockAudio().catch(() => {}); store.put(startTimer(data.activityId)); await changed(); });
+  } else if (name === 'timer-start') { if (store.get('timer')) throw new Error('Conclua a sessão atual primeiro.'); await unlockAudio().catch(() => {}); store.put(startTimer(id)); view = 'home'; await changed(); }
+  else if (name === 'timer-toggle') { const timer = store.get('timer'); if (timer) { store.put(toggleTimer(timer)); await changed(); } }
+  else if (name === 'timer-finish') { const timer = store.get('timer'); if (!timer) return; if (timerElapsed(timer) < 1000) throw new Error('Registre pelo menos um segundo de foco.'); store.batch([finishTimer(timer, store.get(timer.activityId)), { ...timer, deleted: true }]); await changed('Sessão concluída. Cada passo conta!'); }
+  else if (name === 'session-new') manualSession();
+  else if (name === 'session-delete') confirmAction('Remover registro?', 'O tempo desta sessão deixará de aparecer nas estatísticas.', () => { store.remove(id); changed('Registro removido.'); });
+  else if (name === 'event-new') eventEditor();
+  else if (name === 'event-edit') eventEditor(store.get(id));
+  else if (name === 'event-done') { const event = store.get(id); store.put({ ...event, done: !event.done }); editor.close(); await changed(); }
+  else if (name === 'event-delete') { editor.close(); confirmAction('Remover compromisso?', 'Ele será removido do Focalizador. Se você o enviou ao Google Agenda, a cópia no Google será mantida.', () => { store.remove(id); changed('Compromisso removido.'); }); }
+  else if (name === 'event-ics') { await saveFile('compromisso.ics', icsText(store.get(id)), 'text/calendar'); toast('Arquivo de calendário preparado.'); }
+  else if (name === 'event-google') { if (!confirm('Enviar a versão salva deste compromisso para sua agenda principal do Google? Salve primeiro se alterou campos neste formulário.')) return; await pushGoogle(store.get(id)); }
+  else if (name.startsWith('date-')) {
+    if (name === 'date-today') agendaDate = dayKey();
+    else if (name === 'date-select') agendaDate = target.dataset.date;
+    else agendaDate = shiftCalendarDate(agendaDate, agendaMode, name === 'date-prev' ? -1 : 1);
+    render();
+    if (name === 'date-select' && window.matchMedia?.('(max-width:640px)')?.matches) document.querySelector('#agenda-details')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (name === 'stats-period') { statsPeriod = Number(target.dataset.period); render(); }
+  else if (name === 'close-dialog') editor.close();
+  else if (name === 'configuration') configure();
+  else if (name === 'login') login();
+  else if (name === 'signup') login(true);
+  else if (name === 'reset-password') { const email = editor.querySelector('[name="email"]').value; if (!email) throw new Error('Preencha seu e-mail para receber a recuperação.'); await cloud.reset(email); toast('Se a conta existir, você receberá um e-mail de recuperação.'); }
+  else if (name === 'logout') { if (cloud.busy) throw new Error('Aguarde a sincronização terminar.'); cloud.logout(); googleToken = null; googleEvents = []; clearTimeout(pendingSync); store = new Store(localStorage); syncStatus = 'Salvo neste dispositivo'; await changed('Conta desconectada. Seus dados continuam guardados separadamente.'); }
+  else if (name === 'sync') await sync();
+  else if (name === 'enable-alerts') { await unlockAudio().catch(() => {}); await requestAlerts(); await scheduleAlerts(store.all('event'), store.namespace, store.state.fired); toast('Permissões solicitadas. Confira as opções autorizadas no sistema.'); }
+  else if (name === 'backup-export') { await saveFile(`focalizador-${dayKey()}.json`, JSON.stringify(store.export(), null, 2), 'application/json'); toast('Backup preparado.'); }
+  else if (name === 'backup-import') document.querySelector('#backup-file').click();
+  else if (name === 'google-connect') { googleToken = await calendarToken(config); render(); toast('Google Agenda conectado nesta sessão.'); }
+  else if (name === 'google-list') { const query = new URLSearchParams({ timeMin: new Date().toISOString(), maxResults: '30', singleEvents: 'true', orderBy: 'startTime' }); const result = await googleRequest(`calendars/primary/events?${query}`); googleEvents = result.items || []; render(); }
+  else if (name === 'alarm-stop') { stopSound(); alarm.close(); window.focusDesktop?.stopAlarm(); }
+  else if (name === 'conflict-local' || name === 'conflict-remote') {
+    store.transaction(next => { const remote = next.conflicts[id]; if (name === 'conflict-remote') next.records[id] = { ...remote, _dirty: false }; else next.records[id] = { ...next.records[id], _cloudTime: remote._cloudTime, _dirty: true }; delete next.conflicts[id]; }); await changed(); await sync(false);
+  }
+}
+document.addEventListener('click', async event => {
+  const target = event.target.closest('[data-action]'); if (!target || target.disabled || operationBusy) return;
+  event.preventDefault(); operationBusy = true; target.disabled = true;
+  try { await action(target.dataset.action, target); } catch (error) { toast(readableError(error)); } finally { operationBusy = false; target.disabled = false; }
+});
+document.addEventListener('change', async event => {
+  try {
+    if (event.target.id === 'activity-search') { activityQuery = event.target.value.trim(); render(); }
+    if (event.target.id === 'agenda-date' && event.target.value) { agendaDate = event.target.value; render(); }
+    if (event.target.id === 'backup-file') {
+      const file = event.target.files[0]; if (!file) return; if (file.size > 10000000) throw new Error('O backup deve ter até 10 MB.'); const data = JSON.parse(await file.text());
+      confirmAction('Importar backup?', 'Os registros do arquivo serão combinados aos seus. Registros com o mesmo identificador serão substituídos.', () => { store.import(data); changed('Backup importado.'); });
+    }
+  } catch (error) { toast(readableError(error)); }
+});
+alarm.addEventListener('cancel', event => event.preventDefault());
+function tick() {
+  const timer = store.get('timer'); for (const element of document.querySelectorAll('[data-timer]')) element.textContent = duration(timerElapsed(timer), true);
+  checkBrowserAlerts(store.all('event'), store, showAlarm);
+}
+window.addEventListener('storage', event => {
+  if (event.key === store.key) { store = new Store(localStorage, store.namespace); if (!editor.open) render(); }
+});
+window.addEventListener('online', () => sync(false));
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { tick(); sync(false); } });
+if (window.focusDesktop) window.focusDesktop.onAlarm(showAlarm);
+render();
+setInterval(tick, 1000);
+setInterval(() => { if (!document.hidden) sync(false); }, 30000);
+scheduleAlerts(store.all('event'), store.namespace, store.state.fired).catch(error => toast(readableError(error)));
+sync(false);
+
+return {  };
+})();
+  if (temporary) document.body.insertAdjacentHTML('afterbegin', '<div role="alert" style="position:sticky;top:0;z-index:2000;padding:12px;background:#fff0c5;color:#654812;text-align:center;font:14px Arial">Seu navegador bloqueou o armazenamento. Você pode testar, mas precisa exportar um backup em Ajustes antes de fechar esta página.</div>');
+} catch (error) {
+  const target = document.querySelector('#app');
+  target.style.cssText = 'display:block;max-width:650px;margin:60px auto;padding:30px;background:white;border-radius:20px;font:16px Arial;line-height:1.6';
+  target.textContent = 'Não foi possível abrir o Focalizador neste navegador. Tente abrir este mesmo arquivo no Chrome ou Edge. Detalhe: ' + (error.message || String(error));
+}
+})();</script>
+</body>
+</html>
